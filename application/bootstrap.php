@@ -13,4 +13,8 @@ require_once 'core/view.php';
 require_once 'core/controller.php';
 require_once 'core/route.php';
 define('__ROOT__',$_SERVER['DOCUMENT_ROOT']);
+define('__CanCreate__',0x1);
+define('__CanRead__',0x2);
+define('__CanUpdate__',0x4);
+define('__CanDelete__ ',0x8);
 Route::start();

@@ -47,7 +47,7 @@ class AccountService
     }
 
     public static function Save($account) {
-        $account->save();
+       return $account->save();
     }
 
     public static function GetByName($accountName, $activatedOnly = false) {

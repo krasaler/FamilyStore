@@ -3,7 +3,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/application/Service/AccountService.ph
 require_once $_SERVER['DOCUMENT_ROOT'] . '/application/ViewModel/RegisterModel.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/application/Helper/AccountHelper.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/application/EmailService/EmailService.php';
-
+require_once $_SERVER['DOCUMENT_ROOT'] . '/application/Service/UserService.php';
 
 class Controller_Account extends Controller
 {
@@ -54,6 +54,10 @@ class Controller_Account extends Controller
         {
             $account->isapproved = true;
             AccountService::Save($account);
+            $user = new User();
+            $user->user_id = $account->account_id;
+            $user->user_name = $account->account_name;
+            UserService::Create($user);
             $this->view->generate('main_view.php', 'template_view.php');
         }
     }
