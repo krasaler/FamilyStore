@@ -1,0 +1,10 @@
+<html>
+<body>
+Привет <h2>AccountName!</h2>
+<br />
+<br />
+Перейди по сылке <a href="VerificationUrl">link</a> чтобы активировать Твою учетную запись.<br /> <br />
+Твой логин <b>AccountName</b> <br />
+твой пароль <b>Password</b>
+</body>
+</html>
