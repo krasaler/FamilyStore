@@ -68,8 +68,7 @@ class Controller_Account extends Controller
         $model->Email = $email;
         if (!AccountService::IsExistedByName($login)) {
             $account = AccountHelper::PopulateAccountFromRegisterViewModel($model);
-            AccountService::Create($account);
-            $account = AccountService::GetByName($login);
+            $account=AccountService::Create($account);
             EmailService::SendVerifyNewUserMessage($account, $model->Password, 'http://Store/',
                 'Account/VerifyNewAccount');
         } else {

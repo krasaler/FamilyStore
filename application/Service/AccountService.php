@@ -18,7 +18,8 @@ class AccountService
     }
 
     public static function Create($account) {
-        Account::create(array(
+        return Account::create(array(
+            'account_id' => $account->account_id,
             'account_name' => $account->account_name,
             'email' => $account->email,
             'passwordsalt' => $account->passwordsalt,
