@@ -1,6 +1,6 @@
 <?php
 
-class UserRole
+class UserRole extends ActiveRecord\Model
 {
     public static $table_name='userrole';
     public static $primary_key='userrole_id';

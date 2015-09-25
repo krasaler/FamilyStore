@@ -4,7 +4,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/application/ViewModel/RegisterModel.p
 require_once $_SERVER['DOCUMENT_ROOT'] . '/application/Helper/AccountHelper.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/application/EmailService/EmailService.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/application/Service/UserService.php';
-
+require_once __ROOT__ . '/application/Helper/PermissionHelper.php';
 class Controller_Account extends Controller
 {
 
@@ -79,9 +79,15 @@ class Controller_Account extends Controller
 				echo 'Данное имя уже сещуствует';
 		}
     }
-
+    function action_permission()
+    {
+        $this->view->generate('permission_view.php', 'template_view.php');
+    }
     function action_index()
     {
+        session_start();
+        $login = $_SESSION["login"];
+        PermissionHelper::Verification($login,__Viewer__,__CanUpdate__);
         $this->view->generate('accountindex_view.php', 'template_view.php');
-    }
+     }
 }

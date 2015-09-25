@@ -12,12 +12,14 @@ require_once 'core/model.php';
 require_once 'core/view.php';
 require_once 'core/controller.php';
 require_once 'core/route.php';
-require_once 'Helper/Permission.php';
 define('__ROOT__',$_SERVER['DOCUMENT_ROOT']);
 define('__CanCreate__',0x1);
 define('__CanRead__',0x2);
 define('__CanUpdate__',0x4);
-define('__CanDelete__ ',0x8);
+define('__CanRemove__ ',0x8);
+/*
 define('__Viewer__',0x1);
-define('__Editor __ ',0x2);
+define('__Editor __ ',0x2);*/
+define('__Viewer__',"Viewer");
+define('__Editor __ ',"Editor");
 Route::start();

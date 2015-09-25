@@ -15,6 +15,7 @@ class Controller_Catalog extends Controller
 
     function action_index()
     {
+
         if (isset($_GET['p'])) {
             $page = $_GET['p'];
         } else {
