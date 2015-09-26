@@ -1,11 +1,10 @@
 <html>
 <body>
-Привет <h2>AccountName!</h2>
+Здравствуйте <h2>@AccountName!</h2>
 <br />
 <br />
-
-Перейди по сылке <a href="VerificationUrl">link</a> чтобы активировать Твою учетную запись.<br /> <br />
-Твой логин <b>AccountName</b> <br />
-твой пароль <b>Password</b>
-       </body>
-       </html>
+<p>Интернет магазин "Family Store" благодарит вас за покупку.</p>
+<p>Номер вашего заказа @OrderId.</p>
+<p>Сумма заказа  грн.</p>
+</body>
+</html>

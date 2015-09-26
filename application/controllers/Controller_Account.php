@@ -39,6 +39,7 @@ class Controller_Account extends Controller
          else {
             echo 'Неверный логин или пароль';
             $_SESSION["is_auth"] = false;
+             $_SESSION["login"] = null;
         }
     }
 

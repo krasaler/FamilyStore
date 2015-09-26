@@ -22,4 +22,7 @@ define('__Viewer__',0x1);
 define('__Editor __ ',0x2);*/
 define('__Viewer__',"Viewer");
 define('__Editor __ ',"Editor");
+require_once __ROOT__.'/application/Helper/SectionHelper.php';
+require_once __ROOT__.'/application/Service/SectionService.php';
+$sections = SectionHelper::PopulateSectionViewModelList(SectionService::GetAll());
 Route::start();

@@ -7,6 +7,7 @@ require_once __ROOT__.'/application/Service/OrderListService.php';
 require_once __ROOT__.'/application/Helper/OrderHelper.php';
 require_once __ROOT__.'/application/Service/OrderService.php';
 require_once __ROOT__.'/application/Service/AccountService.php';
+require_once __ROOT__.'/application/EmailService/EmailService.php';
 class Controller_Basket extends Controller
 {
     function __construct()
@@ -64,35 +65,53 @@ class Controller_Basket extends Controller
     {
         session_start();
         $model = $_SESSION['basket'];
-        $this->view->generate('inputAddress_view.php', 'template_view.php', $model);
+        if(!is_null($_SESSION["login"])) {
+            $this->view->generate('inputAddress_view.php', 'template_view.php', $model);
+        }
+        else
+        {
+            header('Location: /Account/login');
+        }
     }
     function action_order()
     {
         session_start();
         $model = $_SESSION['basket'];
         $login = $_SESSION["login"];
-        $order = OrderHelper::PopulateOrderFromBasketViewModel($model,AccountService::GetByName($login,true)->account_id);
-        $order = OrderService::Create($order);
-
-        $products = $model->products;
-        for($i=0;$i<count($products);$i++)
-        {
-            $orderlist = new OrderList();
-            $orderlist->order_id = $order->order_id;
-            $orderlist->product_id = $products[$i]->Id;
-            OrderListService::Create($orderlist);
+        if(!is_null($_SESSION["login"])) {
+            $account =  AccountService::GetByName($login, true);
+            $order = OrderHelper::PopulateOrderFromBasketViewModel($model,$account->account_id);
+            $order = OrderService::Create($order);
+            $products = $model->products;
+            for ($i = 0; $i < count($products); $i++) {
+                $orderlist = new OrderList();
+                $orderlist->order_id = $order->order_id;
+                $orderlist->product_id = $products[$i]->Id;
+                OrderListService::Create($orderlist);
+            }
+            $_SESSION['basket'] = null;
+            EmailService::SendNewOrderMessage($account,$order->order_id, $model->SumPrice());
+            $data = $order->order_id;
+            $this->view->generate('Order_view.php', 'template_view.php', $data);
         }
-        $_SESSION['basket']=null;
-        $data = $order->order_id;
-        $this->view->generate('Order_view.php', 'template_view.php', $data);
+        else
+        {
+            header('Location: /Account/login');
+        }
     }
     function action_ConfirmOrder()
     {
         session_start();
         $model = $_SESSION['basket'];
-        $address = $_GET['a'];
-        $model->address = $address;
-        $_SESSION['basket'] = $model;
-        $this->view->generate('ConfirmOrder_view.php', 'template_view.php', $model);
+        if(!is_null($_SESSION["login"])) {
+            $address = $_GET['a'];
+            $model->address = $address;
+            $_SESSION['basket'] = $model;
+            $this->view->generate('ConfirmOrder_view.php', 'template_view.php', $model);
+        }
+        else
+        {
+            header('Location: /Account/login');
+        }
     }
 }

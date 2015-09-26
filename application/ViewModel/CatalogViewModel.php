@@ -8,6 +8,6 @@
 
 class CatalogViewModel{
     public $products;
-    public $currentPage;
-    public $totalPage;
+    public $section;
+    public $name;
 }

@@ -21,8 +21,8 @@ class Controller_Catalog extends Controller
         } else {
             $page = 1;
         }
-        if (isset($_GET['catalogue'])) {
-            $productsVM = ProductHelper::PopulateProductViewModelList(ProductService::GetByCatalogue($_GET['catalogue']));
+        if (isset($_GET['c'])) {
+            $productsVM = ProductHelper::PopulateProductViewModelList(ProductService::GetByCatalogue($_GET['c']));
         } else {
             $productsVM = ProductHelper::PopulateProductViewModelList(ProductService::GetAll());
         }
