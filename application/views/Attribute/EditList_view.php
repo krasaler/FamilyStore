@@ -1,4 +1,4 @@
-<form class="form-horizontal" action="/Attribute/UpdateFloat" method="post">
+<form class="form-horizontal" action="/Attribute/UpdateList" method="post">
     <fieldset>
         <input type="hidden" name="id" value="<?php echo $data->id; ?>">
         <div class="form-group">
@@ -6,7 +6,7 @@
 
             <div class="col-sm-10">
                 <input type="text" class="form-control" name="inputName" placeholder="Название"
-                value="<?php echo $data->name;?>">
+                       value="<?php echo $data->name;?>">
             </div>
         </div>
         <div class="form-group">
@@ -22,7 +22,7 @@
                             echo '<option>' . $data->attributeGroups[$i]->name . '</option>';
                         }
                     }
-                        ?>
+                    ?>
                 </select>
             </div>
         </div>
@@ -40,8 +40,17 @@
                             echo '<option>' . $data->units[$i]->name . '</option>';
                         }
                     }
-?>
+                    ?>
                 </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Возможные значения</label>
+
+            <div class="col-sm-10">
+                <textarea name="inputValue" class="form-control"><?php
+                    echo implode("\n", $data->values);
+                    ?></textarea>
             </div>
         </div>
     </fieldset>

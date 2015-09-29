@@ -14,6 +14,15 @@ class AttributeListService
     {
         return AttributeList::find('all',array('attribute_id'=>$attributeId));
     }
+    public static function GetValuesByAttributeId($attributeId)
+    {
+        $attributeslist = AttributeListService::GetByAttributeId($attributeId);
+        for($i=0;$i<count($attributeslist);$i++)
+        {
+            $values[$i] = $attributeslist[$i]->name;
+        }
+        return $values;
+    }
     public static function Save($attribute)
     {
         $attribute->save();

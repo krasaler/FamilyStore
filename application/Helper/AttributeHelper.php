@@ -26,4 +26,18 @@ class AttributeHelper
         return $models;
 
     }
+    public static function PopulateAttributeFromEditModel($id,$name, $attributeGroupName, $attributeUnitName)
+    {
+        $attribute = AttributeService::GetById($id);
+        $attribute->attributegroup_id = AttributeGroupService::GetByName($attributeGroupName)->attributegroup_id;
+        $attribute->name = $name;
+        if ($attributeUnitName != "-") {
+            $attribute->unit_id = UnitService::GetByName($attributeUnitName)->unit_id;
+        }
+        else
+        {
+            $attribute->unit_id = null;
+        }
+        return $attribute;
+    }
 }

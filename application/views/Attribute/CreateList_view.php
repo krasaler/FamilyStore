@@ -1,4 +1,4 @@
-<form class="form-horizontal" action="/Attribute/newFloat" method="post">
+<form class="form-horizontal" action="/Attribute/newList" method="post">
     <fieldset>
         <div class="form-group">
             <label for="inputName" class="col-sm-2 control-label">Название</label>
@@ -36,6 +36,13 @@
                     }
                     ?>
                 </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Возможные значения</label>
+
+            <div class="col-sm-10">
+                <textarea name="inputValue" class="form-control"></textarea>
             </div>
         </div>
     </fieldset>
