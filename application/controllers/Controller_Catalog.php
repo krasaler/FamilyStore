@@ -1,9 +1,16 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/application/Service/ProductService.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/application/ViewModel/ProductViewModel.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/application/Helper/ProductHelper.php';
+
+require_once $_SERVER['DOCUMENT_ROOT'] . '/application/Helper/AttributeGroupHelper.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/application/Helper/CatalogDetailHelper.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/application/Helper/CatalogEditHelper.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/application/Service/AccountService.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/application/Service/ReviewService.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/application/Service/AttributeGroupService.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/application/Service/CatalogueService.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/application/Service/SectionService.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/application/Service/AttributeService.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/application/Service/CatalogueAttributeService.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/application/Service/SectionService.php';
 
 class Controller_Catalog extends Controller
 {
@@ -13,45 +20,86 @@ class Controller_Catalog extends Controller
         parent::__construct();
     }
 
-    function action_index()
-    {
 
-        if (isset($_GET['p'])) {
-            $page = $_GET['p'];
-        } else {
-            $page = 1;
-        }
-        if (isset($_GET['c'])) {
-            $productsVM = ProductHelper::PopulateProductViewModelList(ProductService::GetByCatalogue($_GET['c']));
-        } else {
-            $productsVM = ProductHelper::PopulateProductViewModelList(ProductService::GetAll());
-        }
-        $this->view->generate('catalog_view.php', 'template_view.php', $productsVM);
+    function action_Item()
+    {
+        $model = CatalogueHelper::PopulateCatalogueViewModelList(CatalogueService::GetAll());
+        $this->view->generate('/Catalog/item_view.php', 'template_view.php', $model);
     }
 
-    function action_detail()
+    function action_Create()
     {
-        $tovarId = $_GET['tovarId'];
-        $this->view->generate('detail_view.php', 'template_view.php',
-            ProductHelper::PopulateProductViewModel(ProductService::GetById($tovarId)));
+        $model = AttributeGroupHelper::PopulateAttributeGroupViewModelList(AttributeGroupService::GetAll());
+        $this->view->generate('/Catalog/create_view.php', 'template_view.php', $model);
     }
-    function action_newReview()
+    function action_Edit()
     {
-        session_start();
-        $tovarId = $_POST['tovarId'];
-        $login = $_SESSION["login"];
-        $review = new Review();
-        $review->product_id = $_POST['tovarId'];
-        $review->account_id = AccountService::GetByName($login,true)->account_id;
-        $review->value = $_POST['review'];
-        ReviewService::Create($review);
-        $this->view->generate('detail_view.php', 'template_view.php',
-            ProductHelper::PopulateProductViewModel(ProductService::GetById($tovarId)));
+        $catalog_id = $_GET['id'];
+        $model = CatalogEditHelper::PopulateCatalogueEditViewModel(CatalogueService::GetById($catalog_id));
+        $this->view->generate('/Catalog/edit_view.php', 'template_view.php', $model);
     }
-    function action_search()
+
+    function action_Update()
     {
-        $tovarName = $_GET['q'];
-        $productsVM = ProductHelper::PopulateProductViewModelList(ProductService::GetByPartialName($tovarName));
-        $this->view->generate('catalog_view.php', 'template_view.php', $productsVM);
+        $catalogue_id = $_POST['id'];
+        $name = $_POST['inputName'];
+        $sectionName = $_POST['inputSection'];
+        $attribute = $_POST['attributes'];
+        $catalogue =CatalogueService::GetById($catalogue_id);
+        $catalogue->name = $name;
+        $catalogue->section_id = SectionService::GetByName($sectionName)->section_id;
+        CatalogueService::Save($catalogue);
+        $catalogue = CatalogueService::GetById($catalogue_id);
+        $catalogueAttribute = CatalogueAttributeService::GetByCatalogueId($catalogue_id);
+        for($i=0;$i<count($catalogueAttribute);$i++)
+        {
+            CatalogueAttributeService::Delete($catalogueAttribute[$i]);
+        }
+        for ($i = 0; $i < count($attribute); $i++) {
+            $value = new CatalogueAttribute();
+            $value->catalogue_id = $catalogue_id;
+            $value->attribute_id = trim($attribute[$i]);
+            CatalogueAttributeService::Create($value);
+        }
+        header("Location: /Catalog/Item");
     }
+
+    function action_Detail()
+    {
+        $catalog_id = $_GET['id'];
+        $model = CatalogDetailHelper::PopulateCatalogueDetailViewModel(CatalogueService::GetById($catalog_id));
+        $this->view->generate("/Catalog/detail_view.php",'template_view.php',$model);
+    }
+
+    function action_Remove()
+    {
+        $catalog_id = $_GET['id'];
+        $catalogue = CatalogueService::GetById($catalog_id);
+        CatalogueService::Delete($catalogue);
+        header("Location: /catalog/item");
+    }
+
+
+    function action_new()
+    {
+        $name = $_POST['inputName'];
+        $sectionName = $_POST['inputSection'];
+        $attribute = $_POST['attributes'];
+        $catalogue = new Catalogue();
+        $catalogue->name = $name;
+        $catalogue->section_id = SectionService::GetByName($sectionName)->section_id;
+        CatalogueService::Create($catalogue);
+        $catalogue = CatalogueService::GetByName($name);
+        for ($i = 0; $i < count($attribute); $i++) {
+            $value = new CatalogueAttribute();
+            $value->catalogue_id = $catalogue->catalogue_id;
+            $value->attribute_id = AttributeService::GetByName(trim($attribute[$i]))->attribute_id;
+            CatalogueAttributeService::Create($value);
+        }
+        header("Location: /Catalog/Item");
+    }
+
+
+
+
 }

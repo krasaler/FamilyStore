@@ -7,6 +7,7 @@
  */
 
 class CatalogViewModel{
+    public $id;
     public $products;
     public $section;
     public $name;

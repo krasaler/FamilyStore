@@ -6,4 +6,8 @@ class Controller_Main extends Controller
     {	
         $this->view->generate('main_view.php', 'template_view.php');
     }
+    function action_Description()
+    {
+        $this->view->generate('description_view.php', 'template_view.php');
+    }
 }

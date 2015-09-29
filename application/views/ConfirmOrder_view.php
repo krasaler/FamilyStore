@@ -27,7 +27,7 @@
     </tr>
     <tr>
         <td>Аддрес доставки</td>
-        <td colspan="4"><?php echo $data->address; ?></td>
+        <td colspan="4"><?php echo $data->branch->address; ?></td>
     </tr>
     <tr>
         <td colspan="5" class="text-right">

@@ -7,11 +7,20 @@ if(UserRoleService::CheckAdmin($_SESSION['login']))
 ?>
     <div class="btn-group">
         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Категории <span class="caret"></span>
+            Каталог <span class="caret"></span>
         </button>
         <ul class="dropdown-menu">
-            <li><a href="#">Добавить</a></li>
-            <li><a href="#">Список категорий</a></li>
+            <li><a href="/Catalog/Create">Добавить каталог</a></li>
+            <li><a href="/Catalog/Item">Список каталогов</a></li>
+        </ul>
+    </div>
+    <div class="btn-group">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Разделы <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            <li><a href="/Section/Create">Добавить раздел каталога</a></li>
+            <li><a href="/Section/Item">Список разделов</a> </li>
         </ul>
     </div>
     <div class="btn-group">
@@ -19,7 +28,9 @@ if(UserRoleService::CheckAdmin($_SESSION['login']))
             Аттрибуты <span class="caret"></span>
         </button>
         <ul class="dropdown-menu">
-            <li><a href="#">Добавить</a></li>
+            <li><a href="#">Добавить обычный атрибут</a></li>
+            <li><a href="#">Добавить списочный атрибут</a></li>
+            <li><a href="#">Добавить группу атрибутов</a></li>
             <li><a href="/Attribute/Item">Список атрибутов</a></li>
         </ul>
     </div>

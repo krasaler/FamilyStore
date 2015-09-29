@@ -1,0 +1,31 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Название каталога</h3>
+    </div>
+    <div class="panel-body">
+        <?php echo $data->name; ?>
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Название раздела</h3>
+    </div>
+    <div class="panel-body">
+        <?php echo $data->section_name; ?>
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Атрибуты</h3>
+    </div>
+    <ul class="list-group">
+        <?php
+        if (count($data->attributes) == 0) {
+            echo '<li class="list-group-item">Атрибуты отсутсвуют</li>';
+        }
+        for ($i = 0; $i < count($data->attributes); $i++) {
+            echo '<li class="list-group-item">' . $data->attributes[$i]->name . '</li>';
+        }
+        ?>
+    </ul>
+</div>

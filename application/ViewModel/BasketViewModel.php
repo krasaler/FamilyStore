@@ -4,7 +4,7 @@ class BasketViewModel
 {
     public $products;
     public $counts;
-    public $address;
+    public $branch;
 
     public function __construct()
     {

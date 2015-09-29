@@ -1,5 +1,5 @@
-<?php require_once __ROOT__.'/application/Helper/ReviewHelper.php';
-require_once __ROOT__.'/application/Service/ReviewService.php';?>
+<?php require_once __ROOT__ . '/application/Helper/ReviewHelper.php';
+require_once __ROOT__ . '/application/Service/ReviewService.php';?>
 <h3 class="text-center h3"><?php echo $data->name; ?></h3>
 <div class="row">
     <div  class="col-md-3 text-center">
@@ -49,7 +49,7 @@ require_once __ROOT__.'/application/Service/ReviewService.php';?>
         </table>
     </div>
     <div role="tabpanel" class="tab-pane" id="messages">
-        <?php include 'application/views/review_view.php'; ?>
+        <?php include 'application/views/Product/review_view.php'; ?>
     </div>
     <div role="tabpanel" class="tab-pane" id="settings">...</div>
 </div>

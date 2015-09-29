@@ -1,3 +1,8 @@
+<?php
+require_once __ROOT__.'/application/ViewModel/BranchViewModel.php';
+require_once __ROOT__.'/application/Helper/BranchHelper.php';
+require_once __ROOT__.'/application/Service/BranchService.php';
+?>
 <h2 class="h2">Оформление доставки</h2>
 <table class="table">
     <tr>
@@ -10,7 +15,7 @@
     <?php
     for ($i = 0; $i < $data->getCount(); $i++) {
         ?>
-        <tr >
+        <tr>
             <?php
             echo '<td>' . $data->products[$i]->Id . '</td>';
             echo '<td>' . $data->products[$i]->name . '</td>';
@@ -30,12 +35,24 @@
             <form class="form-horizontal">
                 <div class="form-group">
                     <p class="col-sm-2"></p>
+
                     <p class="col-sm-10 text-left" id="error" style="color: red"></p>
                 </div>
                 <div class="form-group">
-                    <label for="inputAddress" class="col-sm-2 control-label">Аддрес доставки</label>
+                    <label for="inputAddress" class="col-sm-2 control-label">Выберите место получения заказа</label>
+
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputAddress" placeholder="Адрес доставки">
+
+                        <select class="form-control" id="inputAddress">
+                            <?php
+                            $branchs = BranchHelper::PopulateBranchViewModelList(BranchService::GetAll());
+                            for ($i=0; $i<count($branchs);$i++) {
+                                ?>
+                                <option><?php echo $branchs[$i]->address; ?></option>
+                                <?php
+                            }
+                            ?>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group">

@@ -27,7 +27,7 @@ class SectionService
     public static function Create($section)
     {
         Section::create(array(
-            'name' => $section->name
+            'section_name' => $section->section_name
         ));
     }
     public static function Delete($section)

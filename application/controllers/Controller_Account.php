@@ -16,7 +16,7 @@ class Controller_Account extends Controller
 
     function action_login()
     {
-        $this->view->generate('login_view.php', 'template_view.php');
+        $this->view->generate('/Account/login_view.php', 'template_view.php');
     }
 
     function action_logout()
@@ -45,7 +45,7 @@ class Controller_Account extends Controller
 
     function action_register()
     {
-        $this->view->generate('register_view.php', 'template_view.php');
+        $this->view->generate('/Account/register_view.php', 'template_view.php');
     }
     function action_VerifyNewAccount()
     {
@@ -58,8 +58,7 @@ class Controller_Account extends Controller
             $user = new User();
             $user->user_id = $account->account_id;
             $user->user_name = $account->account_name;
-            UserService::Create($user);
-            $this->view->generate('main_view.php', 'template_view.php');
+            header("Location: /main");
         }
     }
     function action_new()
@@ -89,6 +88,20 @@ class Controller_Account extends Controller
         session_start();
         $login = $_SESSION["login"];
         PermissionHelper::Verification($login,__Viewer__,__CanUpdate__);
-        $this->view->generate('accountindex_view.php', 'template_view.php');
+        $this->view->generate('/Account/index_view.php', 'template_view.php');
      }
+    function action_newReview()
+    {
+        session_start();
+        $tovarId = $_POST['tovarId'];
+        $login = $_SESSION["login"];
+        $review = new Review();
+        $review->product_id = $_POST['tovarId'];
+        $review->account_id = AccountService::GetByName($login, true)->account_id;
+        $review->value = $_POST['review'];
+        ReviewService::Create($review);
+        //Исправить
+        $this->view->generate('detail_view.php', 'template_view.php',
+            ProductHelper::PopulateProductViewModel(ProductService::GetById($tovarId)));
+    }
 }

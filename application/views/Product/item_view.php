@@ -8,7 +8,7 @@ for ($i = 0; $i < count($data); $i += 4) {
                 <img src=<?php echo $data[$j]->ImagePath; ?>>
             </div></br>
             <div>
-                <a href=/catalog/detail?tovarId=<?php echo$data[$j]->Id ?> > <?php echo$data[$j]->name?></a>
+                <a href=/Product/detail?tovarId=<?php echo$data[$j]->Id ?> > <?php echo$data[$j]->name?></a>
                 <div class="row">
                     <p><?php echo$data[$j]->price?> грн. </p>
                     <button class="btn btn-primary btn-md" onclick=sendClick(<?php echo$data[$j]->Id?>)>Добавить в корзину</button>

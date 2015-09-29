@@ -30,7 +30,7 @@
                                     <?php
                                     for ($j = 0; $j < count($sections[$i]->catalogues); $j++) { ?>
                                     <li>
-                                        <a href="/catalog/index?c=<?php  echo $sections[$i]->catalogues[$j]->name; ?>">
+                                        <a href="/Product/Index?c=<?php  echo $sections[$i]->catalogues[$j]->name; ?>">
                                             <?php echo $sections[$i]->catalogues[$j]->name; ?>
                                         </a>
                                     </li>
@@ -43,9 +43,9 @@
                         ?>
                     </ul>
                 </li>
-                <li><a href="/description">О нас</a></li>
+                <li><a href="/main/description">О нас</a></li>
             </ul>
-            <form class="navbar-form navbar-left" role="search" action="/catalog/search" method="get">
+            <form class="navbar-form navbar-left" role="search" action="/Product/Search" method="get">
                 <div class="form-group">
                     <input type="text" class="form-control" name="q" placeholder="Поиск">
                 </div>

@@ -21,6 +21,7 @@ class CatalogueService
     public static function Create($catalogue)
     {
         Catalogue::create(array(
+            'section_id' => $catalogue->section_id,
             'name' => $catalogue->name
         ));
     }

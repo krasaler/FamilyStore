@@ -18,6 +18,17 @@ function Auth(myForm) {
         });
 }
 
+function CreateCatalog(myForm) {
+    var values = [];
+    var vehicles = myForm.form.attributes;
+
+    for (var i = 0, iLen = vehicles.length; i < iLen; i++) {
+        if (vehicles[i].checked) {
+            values.push(vehicles[i].value);
+        }
+    }
+    alert("Vehicles: " + values.join(', '));
+}
 function Register(myForm) {
 
     var login = myForm.form.inputLogin.value;
@@ -74,6 +85,21 @@ function removeBasket(tovarId) {
         });
 }
 
+function RemoveCatalog(catalog_id) {
+    $.post("/catalog/RemoveCatalog", {catalogId: catalog_id},
+        function (data) {
+            window.location.replace('/Catalog/Item');
+        });
+}
+
+function CreateSection() {
+    window.location.replace('/Section/Create');
+}
+
+function CreateCatalog() {
+    window.location.replace('/Catalog/Create');
+}
+
 function newReview(myForm, tovarId) {
     var reviewText = myForm.form.reviewText.value;
     $.post("/catalog/newReview", {review: reviewText, tovarId: tovarId},
@@ -91,11 +117,10 @@ function newOrder() {
 }
 function ConfirmOrder(myForm) {
     var inputAddress = myForm.form.inputAddress.value;
-    if(inputAddress!="") {
-        window.location.replace('/basket/ConfirmOrder?a='+inputAddress);
+    if (inputAddress != "") {
+        window.location.replace('/basket/ConfirmOrder?a=' + inputAddress);
     }
-    else
-    {
+    else {
         $("#error").html("Введите адрес доставки!!!");
     }
 }

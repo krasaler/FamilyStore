@@ -19,7 +19,7 @@ class OrderService
         return Order::create(array(
             'account_id' => $order->account_id,
             'date_order' => $order->date_order,
-            'address' => $order->address,
+            'branch_id' => $order->branch_id,
             'statusorder_id' => 1
         ));
     }

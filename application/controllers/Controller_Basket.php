@@ -8,6 +8,7 @@ require_once __ROOT__.'/application/Helper/OrderHelper.php';
 require_once __ROOT__.'/application/Service/OrderService.php';
 require_once __ROOT__.'/application/Service/AccountService.php';
 require_once __ROOT__.'/application/EmailService/EmailService.php';
+require_once __ROOT__.'/application/Service/BranchService.php';
 class Controller_Basket extends Controller
 {
     function __construct()
@@ -105,7 +106,7 @@ class Controller_Basket extends Controller
         $model = $_SESSION['basket'];
         if(!is_null($_SESSION["login"])) {
             $address = $_GET['a'];
-            $model->address = $address;
+            $model->branch = BranchService::GetByAddress($address);
             $_SESSION['basket'] = $model;
             $this->view->generate('ConfirmOrder_view.php', 'template_view.php', $model);
         }

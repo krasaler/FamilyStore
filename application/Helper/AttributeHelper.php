@@ -12,7 +12,7 @@ class AttributeHelper
         $model->attributeGroupName = AttributeGroupService::GetById($attribute->attributegroup_id)->name;
         $model->status = ($attribute->status==1)?"Разрешен к показу":"Запрещен к показу";
         $model->name = $attribute->name;
-        $model->type = ($attribute->type==1)?"Одиночный":"Список";
+        $model->type = ($attribute->type==1)?"Обычный":"Список";
         $model->unit = UnitService::GetById($attribute->unit_id)->name;
         return $model;
     }

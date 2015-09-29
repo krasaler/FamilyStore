@@ -7,7 +7,7 @@ class OrderHelper
     {
         $order = new Order();
         $order->account_id = $account_id;
-        $order->address = $model->address;
+        $order->branch_id = $model->branch->branch_id;
         $order->date_order = date("Y-m-d H:i:s");
         return $order;
     }

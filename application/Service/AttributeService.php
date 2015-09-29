@@ -21,7 +21,11 @@ class AttributeService
     public static function Create($attribute)
     {
         Attribute::create(array(
-            'name' => $attribute->name
+            'name' => $attribute->name,
+            'attributegroup_id' => $attribute->attributegroup_id,
+            'type' => $attribute->type,
+            'unit_id' => $attribute->unit_id,
+            'status' => $attribute->status
         ));
     }
     public static function Delete($attribute)

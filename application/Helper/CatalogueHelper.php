@@ -2,6 +2,7 @@
 
 require_once __ROOT__.'/application/ViewModel/CatalogViewModel.php';
 require_once __ROOT__.'/application/Service/CatalogueService.php';
+require_once __ROOT__.'/application/Service/ProductService.php';
 class CatalogueHelper
 {
     public static function PopulateCatalogueViewModel($catalogue)
@@ -10,6 +11,7 @@ class CatalogueHelper
         $model->id = $catalogue->catalogue_id;
         $model->name = $catalogue->name;
         $model->section = $catalogue->section->section_name;
+        $model->products = ProductService::GetByCatalogue($model->name);
         return $model;
     }
 

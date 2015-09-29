@@ -10,7 +10,7 @@ class OrderViewModel
 {
     public $id;
     public $account_id;
-    public $address;
+    public $branch;
     public $date_order;
     public $status_id;
 }
