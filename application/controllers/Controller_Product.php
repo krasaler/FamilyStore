@@ -1,18 +1,12 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/application/Service/ProductService.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/application/ViewModel/ProductViewModel.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/application/Helper/ProductHelper.php';
+require_once __ROOT__ . '/application/Service/ProductService.php';
+require_once __ROOT__ . '/application/ViewModel/ProductViewModel.php';
+require_once __ROOT__ . '/application/Helper/ProductHelper.php';
 class Controller_Product extends Controller
 {
     function action_index()
     {
-
-        if (isset($_GET['p'])) {
-            $page = $_GET['p'];
-        } else {
-            $page = 1;
-        }
         if (isset($_GET['c'])) {
             $productsVM = ProductHelper::PopulateProductViewModelList(ProductService::GetByCatalogue($_GET['c']));
         } else {

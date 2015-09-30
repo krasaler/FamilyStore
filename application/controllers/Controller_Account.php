@@ -1,9 +1,9 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/application/Service/AccountService.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/application/ViewModel/RegisterModel.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/application/Helper/AccountHelper.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/application/EmailService/EmailService.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/application/Service/UserService.php';
+require_once __ROOT__ . '/application/Service/AccountService.php';
+require_once __ROOT__ . '/application/ViewModel/RegisterModel.php';
+require_once __ROOT__ . '/application/Helper/AccountHelper.php';
+require_once __ROOT__ . '/application/EmailService/EmailService.php';
+require_once __ROOT__ . '/application/Service/UserService.php';
 require_once __ROOT__ . '/application/Helper/PermissionHelper.php';
 class Controller_Account extends Controller
 {
@@ -37,7 +37,7 @@ class Controller_Account extends Controller
 				$_SESSION["login"] = $login;
 		}
          else {
-            echo 'Неверный логин или пароль';
+            echo 'РќРµРІРµСЂРЅС‹Р№ Р»РѕРіРёРЅ РёР»Рё РїР°СЂРѕР»СЊ';
             $_SESSION["is_auth"] = false;
              $_SESSION["login"] = null;
         }
@@ -76,7 +76,7 @@ class Controller_Account extends Controller
             EmailService::SendVerifyNewUserMessage($account, $model->Password, 'http://Store/',
                 'Account/VerifyNewAccount');
         } else {
-				echo 'Данное имя уже сещуствует';
+				echo 'Р”Р°РЅРЅРѕРµ РёРјСЏ СѓР¶Рµ СЃРµС‰СѓСЃС‚РІСѓРµС‚';
 		}
     }
     function action_permission()
@@ -100,7 +100,7 @@ class Controller_Account extends Controller
         $review->account_id = AccountService::GetByName($login, true)->account_id;
         $review->value = $_POST['review'];
         ReviewService::Create($review);
-        //Исправить
+        //Р�СЃРїСЂР°РІРёС‚СЊ
         $this->view->generate('detail_view.php', 'template_view.php',
             ProductHelper::PopulateProductViewModel(ProductService::GetById($tovarId)));
     }
