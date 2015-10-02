@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Сен 30 2015 г., 12:22
+-- Время создания: Окт 02 2015 г., 21:01
 -- Версия сервера: 5.5.45
 -- Версия PHP: 5.6.12
 
@@ -29,6 +29,7 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `account` (
   `account_id` char(38) NOT NULL,
   `account_name` varchar(50) NOT NULL,
+  `Telefon` char(13) NOT NULL,
   `email` varchar(200) NOT NULL,
   `PasswordSalt` varbinary(30) NOT NULL,
   `PasswordKey` varbinary(30) NOT NULL,
@@ -40,8 +41,9 @@ CREATE TABLE IF NOT EXISTS `account` (
 -- Дамп данных таблицы `account`
 --
 
-INSERT INTO `account` (`account_id`, `account_name`, `email`, `PasswordSalt`, `PasswordKey`, `IsApproved`) VALUES
-('{E6B1CC3C-4AB2-4958-CA84-E3DBA9192624}', 'krasaler', 'krasaler@gmail.com', '�M����}Ћ�9\r�F{', '1a7196d8ba164a884cf8', b'1');
+INSERT INTO `account` (`account_id`, `account_name`, `Telefon`, `email`, `PasswordSalt`, `PasswordKey`, `IsApproved`) VALUES
+('{E6B1CC3C-4AB2-4958-CA84-E3DBA9192624}', 'krasaler', '+380962000872', 'krasaler@gmail.com', '׍ُ۶}Ћȹ\r󙆻', '1a7196d8ba164a884cf8', b'1'),
+('{EE2BA503-158F-5C3C-FF8E-EDF69023CD52}', 'alexkrasnij', '+380962000872', 'alexkrasnij@yandex.ru', 'L䙺1Չ̰>ÿ:Ƨ, '23d2629627750c0d0921', b'1');
 
 -- --------------------------------------------------------
 
@@ -59,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `attribute` (
   PRIMARY KEY (`attribute_id`),
   KEY `unit_id` (`unit_id`),
   KEY `FK_attribute_attributegroup` (`attributegroup_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=42 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=44 ;
 
 --
 -- Дамп данных таблицы `attribute`
@@ -95,7 +97,9 @@ INSERT INTO `attribute` (`attribute_id`, `attributegroup_id`, `name`, `type`, `u
 (27, 5, 'DisplayPort', 1, NULL, 1),
 (28, 5, 'Кард-ридер', 1, NULL, 1),
 (29, 5, 'Другие интерфейсы', 1, NULL, 1),
-(41, 1, 'Операционная система', 1, NULL, 1);
+(41, 1, 'Операционная система', 1, NULL, 1),
+(42, 15, 'Вес', 1, 5, 1),
+(43, 15, 'Размер(ШхВхД)', 1, 6, 1);
 
 -- --------------------------------------------------------
 
@@ -170,26 +174,32 @@ CREATE TABLE IF NOT EXISTS `attributevaluefloat` (
   `attributevaluefloat_id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) NOT NULL,
   `attribute_id` int(11) NOT NULL,
-  `value` double NOT NULL,
+  `value` varchar(50) NOT NULL,
   PRIMARY KEY (`attributevaluefloat_id`),
   KEY `attribute_id` (`attribute_id`),
   KEY `FK_attributevaluefloat_product` (`product_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=32 ;
 
 --
 -- Дамп данных таблицы `attributevaluefloat`
 --
 
 INSERT INTO `attributevaluefloat` (`attributevaluefloat_id`, `product_id`, `attribute_id`, `value`) VALUES
-(1, 1, 2, 2),
-(2, 1, 3, 0),
-(3, 1, 5, 1600),
-(4, 1, 6, 6),
-(5, 1, 7, 32),
-(6, 1, 8, 1),
-(7, 1, 9, 4),
-(8, 1, 11, 1000),
-(9, 1, 13, 7200);
+(1, 1, 2, '2'),
+(2, 1, 3, '0'),
+(3, 1, 5, '1600'),
+(4, 1, 6, '6'),
+(5, 1, 7, '32'),
+(6, 1, 8, '1'),
+(7, 1, 9, '4'),
+(8, 1, 11, '1000'),
+(9, 1, 13, '7200'),
+(14, 20, 11, '82'),
+(15, 20, 13, '7200'),
+(28, 30, 5, '1333'),
+(29, 30, 6, '2'),
+(30, 31, 5, '1600'),
+(31, 31, 6, '4');
 
 -- --------------------------------------------------------
 
@@ -206,7 +216,7 @@ CREATE TABLE IF NOT EXISTS `attributevaluelist` (
   KEY `attribute_id` (`attribute_id`),
   KEY `FK_attributevaluelist_attributelist` (`value`),
   KEY `FK_attributevaluelist_product` (`product_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
 
 --
 -- Дамп данных таблицы `attributevaluelist`
@@ -214,7 +224,10 @@ CREATE TABLE IF NOT EXISTS `attributevaluelist` (
 
 INSERT INTO `attributevaluelist` (`attributevaluelist_id`, `product_id`, `attribute_id`, `value`) VALUES
 (2, 1, 4, 8),
-(4, 1, 1, 4);
+(4, 1, 1, 4),
+(6, 20, 12, 10),
+(13, 30, 4, 8),
+(14, 31, 4, 8);
 
 -- --------------------------------------------------------
 
@@ -250,7 +263,7 @@ CREATE TABLE IF NOT EXISTS `catalogue` (
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`catalogue_id`),
   KEY `FK_catalogue_section` (`section_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=30 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=31 ;
 
 --
 -- Дамп данных таблицы `catalogue`
@@ -273,7 +286,8 @@ INSERT INTO `catalogue` (`catalogue_id`, `section_id`, `name`) VALUES
 (19, 3, 'Плиты'),
 (23, 1, 'Оперативная память'),
 (28, 1, 'Процессоры'),
-(29, 1, 'Жесткие диски');
+(29, 1, 'Жесткие диски'),
+(30, 1, 'Утюг');
 
 -- --------------------------------------------------------
 
@@ -289,7 +303,7 @@ CREATE TABLE IF NOT EXISTS `catalogueattribute` (
   PRIMARY KEY (`catalogueattribute_id`),
   KEY `attribute_id` (`attribute_id`),
   KEY `FK_catalogueattribute_catalogue` (`catalogue_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=143 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=173 ;
 
 --
 -- Дамп данных таблицы `catalogueattribute`
@@ -302,36 +316,39 @@ INSERT INTO `catalogueattribute` (`catalogueattribute_id`, `catalogue_id`, `attr
 (21, 29, 11, 1),
 (22, 29, 12, 1),
 (23, 29, 13, 1),
-(113, 1, 4, 1),
-(114, 1, 5, 1),
-(115, 1, 6, 1),
-(116, 1, 7, 1),
-(117, 1, 8, 1),
-(118, 1, 1, 1),
-(119, 1, 2, 1),
-(120, 1, 3, 1),
-(121, 1, 14, 1),
-(122, 1, 15, 1),
-(123, 1, 16, 1),
-(124, 1, 10, 1),
-(125, 1, 12, 1),
-(126, 1, 13, 1),
-(127, 1, 18, 1),
-(128, 1, 19, 1),
-(129, 1, 17, 1),
-(130, 1, 20, 1),
-(131, 1, 21, 1),
-(132, 1, 22, 1),
-(133, 1, 23, 1),
-(134, 1, 24, 1),
-(135, 1, 25, 1),
-(136, 1, 26, 1),
-(137, 1, 27, 1),
-(138, 1, 28, 1),
-(139, 1, 29, 1),
 (140, 23, 4, 1),
 (141, 23, 5, 1),
-(142, 23, 6, 1);
+(142, 23, 6, 1),
+(143, 30, 17, 1),
+(144, 1, 4, 1),
+(145, 1, 5, 1),
+(146, 1, 6, 1),
+(147, 1, 7, 1),
+(148, 1, 8, 1),
+(149, 1, 1, 1),
+(150, 1, 2, 1),
+(151, 1, 3, 1),
+(152, 1, 14, 1),
+(153, 1, 15, 1),
+(154, 1, 16, 1),
+(155, 1, 10, 1),
+(156, 1, 12, 1),
+(157, 1, 13, 1),
+(158, 1, 18, 1),
+(159, 1, 19, 1),
+(160, 1, 17, 1),
+(161, 1, 20, 1),
+(162, 1, 21, 1),
+(163, 1, 22, 1),
+(164, 1, 23, 1),
+(165, 1, 24, 1),
+(166, 1, 25, 1),
+(167, 1, 26, 1),
+(168, 1, 27, 1),
+(169, 1, 28, 1),
+(170, 1, 29, 1),
+(171, 1, 42, 1),
+(172, 1, 43, 1);
 
 -- --------------------------------------------------------
 
@@ -346,15 +363,13 @@ CREATE TABLE IF NOT EXISTS `orderlist` (
   PRIMARY KEY (`orderlist_id`),
   KEY `order_id` (`order_id`),
   KEY `item_id` (`product_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=31 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=42 ;
 
 --
 -- Дамп данных таблицы `orderlist`
 --
 
 INSERT INTO `orderlist` (`orderlist_id`, `order_id`, `product_id`) VALUES
-(13, 6, 4),
-(14, 6, 1),
 (15, 7, 11),
 (16, 8, 1),
 (17, 8, 4),
@@ -370,7 +385,13 @@ INSERT INTO `orderlist` (`orderlist_id`, `order_id`, `product_id`) VALUES
 (27, 14, 4),
 (28, 14, 1),
 (29, 15, 4),
-(30, 16, 1);
+(30, 16, 1),
+(31, 17, 1),
+(32, 18, 1),
+(33, 19, 1),
+(38, 21, 4),
+(39, 18, 1),
+(41, 22, 1);
 
 -- --------------------------------------------------------
 
@@ -388,24 +409,30 @@ CREATE TABLE IF NOT EXISTS `orders` (
   KEY `status_id` (`statusorder_id`),
   KEY `account_id` (`account_id`),
   KEY `fgh_idx` (`branch_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=23 ;
 
 --
 -- Дамп данных таблицы `orders`
 --
 
 INSERT INTO `orders` (`order_id`, `account_id`, `date_order`, `statusorder_id`, `branch_id`) VALUES
-(6, '{E6B1CC3C-4AB2-4958-CA84-E3DBA9192624}', '2015-09-24 19:58:16', 1, 1),
-(7, '{E6B1CC3C-4AB2-4958-CA84-E3DBA9192624}', '2015-09-25 12:25:08', 1, 1),
-(8, '{E6B1CC3C-4AB2-4958-CA84-E3DBA9192624}', '2015-09-25 14:36:51', 1, 2),
-(9, '{E6B1CC3C-4AB2-4958-CA84-E3DBA9192624}', '2015-09-25 14:40:34', 1, 1),
-(10, '{E6B1CC3C-4AB2-4958-CA84-E3DBA9192624}', '2015-09-25 16:55:51', 1, 1),
-(11, '{E6B1CC3C-4AB2-4958-CA84-E3DBA9192624}', '2015-09-25 16:56:43', 1, 1),
-(12, '{E6B1CC3C-4AB2-4958-CA84-E3DBA9192624}', '2015-09-25 16:58:24', 1, 1),
-(13, '{E6B1CC3C-4AB2-4958-CA84-E3DBA9192624}', '2015-09-25 16:59:24', 1, 2),
+(6, '{E6B1CC3C-4AB2-4958-CA84-E3DBA9192624}', '2015-09-24 19:58:16', 2, 1),
+(7, '{E6B1CC3C-4AB2-4958-CA84-E3DBA9192624}', '2015-09-25 12:25:08', 5, 1),
+(8, '{E6B1CC3C-4AB2-4958-CA84-E3DBA9192624}', '2015-09-25 14:36:51', 2, 2),
+(9, '{E6B1CC3C-4AB2-4958-CA84-E3DBA9192624}', '2015-09-25 14:40:34', 5, 1),
+(10, '{E6B1CC3C-4AB2-4958-CA84-E3DBA9192624}', '2015-09-25 16:55:51', 2, 1),
+(11, '{E6B1CC3C-4AB2-4958-CA84-E3DBA9192624}', '2015-09-25 16:56:43', 2, 1),
+(12, '{E6B1CC3C-4AB2-4958-CA84-E3DBA9192624}', '2015-09-25 16:58:24', 5, 1),
+(13, '{E6B1CC3C-4AB2-4958-CA84-E3DBA9192624}', '2015-09-25 16:59:24', 2, 2),
 (14, '{E6B1CC3C-4AB2-4958-CA84-E3DBA9192624}', '2015-09-27 13:42:12', 1, 1),
 (15, '{E6B1CC3C-4AB2-4958-CA84-E3DBA9192624}', '2015-09-27 13:43:42', 1, 2),
-(16, '{E6B1CC3C-4AB2-4958-CA84-E3DBA9192624}', '2015-09-29 21:49:53', 1, 2);
+(16, '{E6B1CC3C-4AB2-4958-CA84-E3DBA9192624}', '2015-09-29 21:49:53', 1, 2),
+(17, '{E6B1CC3C-4AB2-4958-CA84-E3DBA9192624}', '2015-10-02 14:41:27', 1, 2),
+(18, '{E6B1CC3C-4AB2-4958-CA84-E3DBA9192624}', '2015-10-02 14:44:15', 1, 2),
+(19, '{E6B1CC3C-4AB2-4958-CA84-E3DBA9192624}', '2015-10-02 14:45:22', 1, 1),
+(20, '{E6B1CC3C-4AB2-4958-CA84-E3DBA9192624}', '2015-10-02 14:45:46', 2, 1),
+(21, '{E6B1CC3C-4AB2-4958-CA84-E3DBA9192624}', '2015-10-02 14:48:07', 1, 2),
+(22, '{E6B1CC3C-4AB2-4958-CA84-E3DBA9192624}', '2015-10-02 14:51:43', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -441,21 +468,24 @@ CREATE TABLE IF NOT EXISTS `product` (
   `catalogue_id` int(11) NOT NULL,
   PRIMARY KEY (`product_id`),
   KEY `catalogue_id` (`catalogue_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=32 ;
 
 --
 -- Дамп данных таблицы `product`
 --
 
 INSERT INTO `product` (`product_id`, `Name`, `description`, `Price`, `catalogue_id`) VALUES
-(1, 'Компьютер Lenovo IdeaCentre K450 (57-330280)', '<div class="tabbedBrowse-features-mediatext"><h2 class="tabbedBrowse-features-featureHeading">Трьохпозиційний перемикач живлення</h2><p class="tabbedBrowse-features-featureText">IdeaCentre K450 настільки потужний, що ми забезпечили його трьохпозиційним перемикачем живлення. У червоному положенні комп''ютер швидко працює і споживає багато енергії, в синьому - працює в нормальному режимі, в зеленому функціонує тихо та зі зниженим енергоспоживанням.</p><h2 class="tabbedBrowse-features-featureHeading">Графічна система, створена для ігор</h2><p class="tabbedBrowse-features-featureText">Завдяки підтримці відеокарт аж до NVIDIA® GeForce® GTX660 1,5 ГБ і AMD Radeon ™ HD 8670 2 ГБ найсучасніші 3D-ігри працюють без жодних затримок.</p><h2 class="tabbedBrowse-features-featureHeading">Система просторового звуку 7.1</h2><p class="tabbedBrowse-features-featureText">Звукова система, аналогічна використовуваним в домашніх кінотеатрах, забезпечить найяскравіші враження від фільмів і комп''ютерних ігор.</p><h2 class="tabbedBrowse-features-featureHeading">Запам''ятовуючі пристрої і оперативна пам''ять</h2><p class="tabbedBrowse-features-featureText">Оперативна пам''ять DDR3 об''ємом до 32 ГБ дозволить максимально збільшити продуктивність вашого ПК і рівень багатозадачності. Жорсткий диск ємністю до 4 ТБ забезпечить зберігання всіх ваших даних. Використовуючи портативний жорсткий диск SATA Universal Storage Module (USM) 500 ГБ, ви отримаєте додатковий дисковий простір для зберігання даних і можливість підключення до інших ПК за допомогою кабелю USB 3.0.</p><h2 class="tabbedBrowse-features-featureHeading">Простота модернізації - без використання спеціальних інструментів</h2><p class="tabbedBrowse-features-featureText">Якщо вам недостатньо найвищої продуктивності IdeaCentre K450 - ви можете збільшити її! Розширюваність, зручність доступу до жорсткого диску, велика кількість портів і слотів, а також широкі можливості підключення додаткових компонентів забезпечують простоту модернізації ПК. Усередині корпусу достатньо простору для двох оптичних і двох жорстких дисків. Є всі необхідні порти і роз''єми. Інноваційна конструкція K450 дозволяє модернізувати настільний ПК без спеціальних інструментів.</p><h2 class="tabbedBrowse-features-featureHeading">Підтримка роз''єму SuperSpeed USB 3.0</h2><p class="tabbedBrowse-features-featureText">Підвищення швидкості передачі даних в 10 разів дає можливість миттєво копіювати мультимедійні файли великого розміру. Інтерфейс USB 3.0 можна використовувати також для підключення периферійного аудіо-і відеоустаткування. Зворотна сумісність з пристроями USB 2.0.</p><h2 class="tabbedBrowse-features-featureHeading">Вбудований DVD-привод з функцією читання/запису або привод Blu-Ray ™</h2><p class="tabbedBrowse-features-featureText">Переглядайте фільми, слухайте музику і записуйте диски, використовуючи вбудований в K450 DVD-привод з функцією читання / запису або привод Blu-Ray ™.</p></div>', 13118, 1),
+(1, 'Компьютер Lenovo IdeaCentre K450 (57-330280)', '<div class="tabbedBrowse-features-mediatext"><h2 class="tabbedBrowse-features-featureHeading">Трьохпозиційний перемикач живлення</h2><p class="tabbedBrowse-features-featureText">IdeaCentre K450 настільки потужний, що ми забезпечили його трьохпозиційним перемикачем живлення. У червоному положенні комп''ютер швидко працює і споживає багато енергії, в синьому - працює в нормальному режимі, в зеленому функціонує тихо та зі зниженим енергоспоживанням.</p><h2 class="tabbedBrowse-features-featureHeading">Графічна система, створена для ігор</h2><p class="tabbedBrowse-features-featureText">Завдяки підтримці відеокарт аж до NVIDIA® GeForce® GTX660 1,5 ГБ і AMD Radeon ™ HD 8670 2 ГБ найсучасніші 3D-ігри працюють без жодних затримок.</p><h2 class="tabbedBrowse-features-featureHeading">Система просторового звуку 7.1</h2><p class="tabbedBrowse-features-featureText">Звукова система, аналогічна використовуваним в домашніх кінотеатрах, забезпечить найяскравіші враження від фільмів і комп''ютерних ігор.</p><h2 class="tabbedBrowse-features-featureHeading">Запам''ятовуючі пристрої і оперативна пам''ять</h2><p class="tabbedBrowse-features-featureText">Оперативна пам''ять DDR3 об''ємом до 32 ГБ дозволить максимально збільшити продуктивність вашого ПК і рівень багатозадачності. Жорсткий диск ємністю до 4 ТБ забезпечить зберігання всіх ваших даних. Використовуючи портативний жорсткий диск SATA Universal Storage Module (USM) 500 ГБ, ви отримаєте додатковий дисковий простір для зберігання даних і можливість підключення до інших ПК за допомогою кабелю USB 3.0.</p><h2 class="tabbedBrowse-features-featureHeading">Простота модернізації - без використання спеціальних інструментів</h2><p class="tabbedBrowse-features-featureText">Якщо вам недостатньо найвищої продуктивності IdeaCentre K450 - ви можете збільшити її! Розширюваність, зручність доступу до жорсткого диску, велика кількість портів і слотів, а також широкі можливості підключення додаткових компонентів забезпечують простоту модернізації ПК. Усередині корпусу достатньо простору для двох оптичних і двох жорстких дисків. Є всі необхідні порти і роз''єми. Інноваційна конструкція K450 дозволяє модернізувати настільний ПК без спеціальних інструментів.</p><h2 class="tabbedBrowse-features-featureHeading">Підтримка роз''єму SuperSpeed USB 3.0</h2><p class="tabbedBrowse-features-featureText">Підвищення швидкості передачі даних в 10 разів дає можливість миттєво копіювати мультимедійні файли великого розміру. Інтерфейс USB 3.0 можна використовувати також для підключення периферійного аудіо-і відеоустаткування. Зворотна сумісність з пристроями USB 2.0.</p><h2 class="tabbedBrowse-features-featureHeading">Вбудований DVD-привод з функцією читання/запису або привод Blu-Ray ™</h2><p class="tabbedBrowse-features-featureText">Переглядайте фільми, слухайте музику і записуйте диски, використовуючи вбудований в K450 DVD-привод з функцією читання / запису або привод Blu-Ray ™.</p></div>', 13800, 1),
 (4, ' Компьютер Acer Aspire XC-603 (DT.SULME.003)', '', 6075, 1),
 (5, 'Монитор LCD 22" LG 22MP47A-P', '', 2799, 2),
 (9, ' Монитор LCD 22" Philips 224E5QSB/01', '', 3475, 2),
 (11, 'Монитор LCD 22" Philips 226V4LAB/01', '', 2953, 2),
 (12, 'Монитор LCD 23" Philips 237E4QSD/01', '', 3954, 2),
 (15, 'Монитор LCD 24" Samsung S24D590PL ', '', 4699, 2),
-(16, 'Компьютер Apple Mac Mini A1347 (MGEN2GU/A)', '', 21799, 9);
+(16, 'Компьютер Apple Mac Mini A1347 (MGEN2GU/A)', '', 21799, 9),
+(20, 'Hitachi Deskstar 7K160 HDS721680PLAT80 82 Гб', '<p><b>Highlights</b></p>\n<ul class="standard_text">\n<li>Award-winning, 7200 RPM performance for better throughput in a variety of applications, backed by industry-leading benchmark performance \n</li><li>Fast ATA - 133\n</li><li>Low power design reduces system costs and drives high reliability in ATA-RAID and other multiple drive systems \n</li><li>Quiet operating modes for easy integration into noise sensitive environments </li></ul>\n			<p>\n				<br>\n				<strong>Compatibility</strong>\n			</p> <p>This drive is compatible with any computer that accepts 3.5" form factor&nbsp;IDE / EIDE / PATA drives.</p>', 1000, 29),
+(30, 'Модуль памяти DDR3 2Gb 1333MHz GoodRam (GR1333D364L9/2G)', 'Модуль памяти DDR3 2Gb 1333MHz GoodRam (GR1333D364L9/2G)', 386, 23),
+(31, 'Модуль памяти DDR3 4Gb 1600MHz GoodRam (GR1600D364L11S/4G)', 'Модуль памяти DDR3 4Gb 1600MHz GoodRam (GR1600D364L11S/4G)', 636, 23);
 
 -- --------------------------------------------------------
 
@@ -471,14 +501,15 @@ CREATE TABLE IF NOT EXISTS `Review` (
   PRIMARY KEY (`review_id`),
   KEY `FK__account` (`account_id`),
   KEY `FK__product` (`product_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=33 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=44 ;
 
 --
 -- Дамп данных таблицы `Review`
 --
 
 INSERT INTO `Review` (`review_id`, `product_id`, `account_id`, `value`) VALUES
-(32, 1, '{E6B1CC3C-4AB2-4958-CA84-E3DBA9192624}', 'Приветик');
+(32, 1, '{E6B1CC3C-4AB2-4958-CA84-E3DBA9192624}', 'Приветик'),
+(43, 4, '{E6B1CC3C-4AB2-4958-CA84-E3DBA9192624}', '2');
 
 -- --------------------------------------------------------
 
@@ -519,7 +550,7 @@ CREATE TABLE IF NOT EXISTS `RolePermission` (
   PRIMARY KEY (`rolepermission_id`),
   KEY `FK_RolePermission_Permission` (`permission_id`),
   KEY `FK_RolePermission_Role` (`role_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Дамп данных таблицы `RolePermission`
@@ -528,8 +559,9 @@ CREATE TABLE IF NOT EXISTS `RolePermission` (
 INSERT INTO `RolePermission` (`rolepermission_id`, `role_id`, `permission_id`, `CanCreate`, `CanRead`, `CanUpdate`, `CanRemove`) VALUES
 (1, 1, 2, b'1', b'1', b'1', b'1'),
 (2, 2, 1, b'1', b'1', b'0', b'0'),
-(4, 2, 2, b'0', b'0', b'0', b'0'),
-(5, 3, 1, b'0', b'1', b'0', b'0');
+(4, 2, 2, b'1', b'1', b'1', b'0'),
+(5, 3, 1, b'0', b'1', b'0', b'0'),
+(6, 1, 1, b'1', b'1', b'1', b'1');
 
 -- --------------------------------------------------------
 
@@ -621,7 +653,8 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`user_id`, `user_name`) VALUES
-('{E6B1CC3C-4AB2-4958-CA84-E3DBA9192624}', 'krasaler');
+('{E6B1CC3C-4AB2-4958-CA84-E3DBA9192624}', 'krasaler'),
+('{EE2BA503-158F-5C3C-FF8E-EDF69023CD52}', 'alexkrasnij');
 
 -- --------------------------------------------------------
 
@@ -636,7 +669,7 @@ CREATE TABLE IF NOT EXISTS `UserRole` (
   PRIMARY KEY (`userrole_id`),
   KEY `FK_UserRole_user` (`user_id`),
   KEY `FK_UserRole_Role` (`role_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Дамп данных таблицы `UserRole`

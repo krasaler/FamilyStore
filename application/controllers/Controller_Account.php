@@ -26,6 +26,7 @@ class Controller_Account extends Controller
     {
         session_start();
         $_SESSION["is_auth"] = false;
+        $_SESSION['login'] = null;
         header('Location: /main/index');
     }
     function action_order()
