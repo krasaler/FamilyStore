@@ -14,7 +14,7 @@ class ProductService
     }
     public static function GetByName($productName)
     {
-        return Product::find('all',array('name' => $productName));
+        return Product::find(array('name' => $productName));
     }
     public static function GetByPartialName($productName)
     {

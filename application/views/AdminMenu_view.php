@@ -59,18 +59,8 @@ if (isset($_SESSION['login'])) {
                 Товары <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-                <li><a href="#">Добавить новый товар</a></li>
-                <li><a href="#">Список товаров</a></li>
-            </ul>
-        </div>
-        <div class="btn-group">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
-                Пользователи <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu">
-                <li><a href="#">Черный список</a></li>
-                <li><a href="#">Редактор прав</a></li>
+                <li><a href="/Product/SelectCatalog">Добавить новый товар</a></li>
+                <li><a href="/Product/ItemAdmin">Список товаров</a></li>
             </ul>
         </div>
         <div class="btn-group">
@@ -79,21 +69,11 @@ if (isset($_SESSION['login'])) {
                 Заказы <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-                <li><a href="#">Ожидающие подтверждения</a></li>
-                <li><a href="#">Ожидающие доставки</a></li>
-                <li><a href="#">Готовые к получению</a></li>
-                <li><a href="#">Полученные</a></li>
-            </ul>
-        </div>
-        <div class="btn-group">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
-                Статистика продаж <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu">
-                <li><a href="#">По категориям</a></li>
-                <li><a href="#">За последний 1 месяц</a></li>
-                <li><a href="#">за последнюю 1 неделю</a></li>
+                <li><a href="/Order/Item?id=1">Ожидающие подтверждения</a></li>
+                <li><a href="/Order/Item?id=3">Ожидающие доставки</a></li>
+                <li><a href="/Order/Item?id=4">Готовые к получению</a></li>
+                <li><a href="/Order/Item?id=5">Полученные</a></li>
+                <li><a href="/Order/Item?id=2">Отмененные</a></li>
             </ul>
         </div>
         <?php

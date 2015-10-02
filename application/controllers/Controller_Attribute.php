@@ -79,28 +79,13 @@ class Controller_Attribute extends Controller
     public function action_EditFloat()
     {
         $id = $_GET['id'];
-        $attribute = AttributeService::GetById($id);
-        $model = new AttributeFloatEditViewModel();
-        $model->id=$id;
-        $model->attributeGroups = AttributeGroupHelper::PopulateAttributeGroupViewModelList(AttributeGroupService::GetAll());
-        $model->units = UnitService::GetAll();
-        $model->name = $attribute->name;
-        $model->attributeGroupName = AttributeGroupService::GetById($attribute->attributegroup_id)->name;
-        $model->unitName = UnitService::GetById($attribute->unit_id)->name;
-         $this->view->generate('/Attribute/EditFloat_view.php', 'template_view.php', $model);
+        $model = AttributeHelper::PopulateAttributeFloatEditViewModel(AttributeService::GetById($id));
+        $this->view->generate('/Attribute/EditFloat_view.php', 'template_view.php', $model);
     }
     public function action_EditList()
     {
         $id = $_GET['id'];
-        $attribute = AttributeService::GetById($id);
-        $model = new AttributeListEditViewModel();
-        $model->id=$id;
-        $model->attributeGroups = AttributeGroupHelper::PopulateAttributeGroupViewModelList(AttributeGroupService::GetAll());
-        $model->units = UnitService::GetAll();
-        $model->name = $attribute->name;
-        $model->attributeGroupName = AttributeGroupService::GetById($attribute->attributegroup_id)->name;
-        $model->unitName = UnitService::GetById($attribute->unit_id)->name;
-        $model->values = AttributeListService::GetValuesByAttributeId($id);
+        $model=AttributeHelper::PopulateAttributeListEditViewModel(AttributeService::GetById($id));
         $this->view->generate('/Attribute/EditList_view.php', 'template_view.php', $model);
     }
     public function action_UpdateFloat()
@@ -114,28 +99,13 @@ class Controller_Attribute extends Controller
     public function action_DetailList()
     {
         $id = $_GET['id'];
-        $attribute = AttributeService::GetById($id);
-        $model = new AttributeListEditViewModel();
-        $model->id=$id;
-        $model->attributeGroups = AttributeGroupHelper::PopulateAttributeGroupViewModelList(AttributeGroupService::GetAll());
-        $model->units = UnitService::GetAll();
-        $model->name = $attribute->name;
-        $model->attributeGroupName = AttributeGroupService::GetById($attribute->attributegroup_id)->name;
-        $model->unitName = UnitService::GetById($attribute->unit_id)->name;
-        $model->values = AttributeListService::GetValuesByAttributeId($id);
+        $model=AttributeHelper::PopulateAttributeListEditViewModel(AttributeService::GetById($id));
         $this->view->generate('/Attribute/DetailList_view.php', 'template_view.php', $model);
     }
     public function action_DetailFloat()
     {
         $id = $_GET['id'];
-        $attribute = AttributeService::GetById($id);
-        $model = new AttributeFloatEditViewModel();
-        $model->id=$id;
-        $model->attributeGroups = AttributeGroupHelper::PopulateAttributeGroupViewModelList(AttributeGroupService::GetAll());
-        $model->units = UnitService::GetAll();
-        $model->name = $attribute->name;
-        $model->attributeGroupName = AttributeGroupService::GetById($attribute->attributegroup_id)->name;
-        $model->unitName = UnitService::GetById($attribute->unit_id)->name;
+        $model = AttributeHelper::PopulateAttributeFloatEditViewModel(AttributeService::GetById($id));
         $this->view->generate('/Attribute/DetailFloat_view.php', 'template_view.php', $model);
     }
     public function GetIndexFromArray($attribute,$attributes)

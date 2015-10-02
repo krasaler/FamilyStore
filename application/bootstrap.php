@@ -7,7 +7,6 @@ ActiveRecord\Config::initialize(function($cfg)
     $cfg->set_connections(array(
         'development' => 'mysql://root:@127.0.0.1/Store'));
 });
-
 require_once 'core/model.php';
 require_once 'core/view.php';
 require_once 'core/controller.php';
@@ -17,6 +16,12 @@ define('__CanCreate__',0x1);
 define('__CanRead__',0x2);
 define('__CanUpdate__',0x4);
 define('__CanRemove__ ',0x8);
+
+define('__Cancel__',2);
+define('__WaitConfirm__',1);
+define('__AwaitingDelivery__',3);
+define('__Access__ ',4);
+define('__Received__ ',5);
 /*
 define('__Viewer__',0x1);
 define('__Editor __ ',0x2);*/

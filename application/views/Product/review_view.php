@@ -18,7 +18,7 @@
 <form class=form-inline">
     <div class="form-group" style="vertical-align: middle">
         <div class="col-lg-10">
-            <input id="reviewText" type="text" placeholder="Ваш коментарий" style="width: 100%;">
+            <input id="reviewText" class="form-control" type="text" placeholder="Ваш коментарий" style="width: 100%;">
         </div>
         <div class="col-lg-2">
             <input type="button" onclick="newReview(this,<?php echo $data->Id?>)" value="Отправить" style="width: 100%;" class="btn btn-primary btn-md">

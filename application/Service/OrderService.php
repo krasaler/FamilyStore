@@ -8,7 +8,15 @@ class OrderService
     }
     public static function GetById($orderId)
     {
-        return Order::find('all',array('order_id'=>$orderId));
+        return Order::find(array('order_id'=>$orderId));
+    }
+    public static function GetByAccountId($account_id)
+    {
+        return Order::find('all',array('account_id'=>$account_id));
+    }
+    public static function GetByStatusId($status_id)
+    {
+        return Order::find('all',array('statusorder_id'=>$status_id));
     }
     public static function Save($order)
     {

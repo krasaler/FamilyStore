@@ -5,13 +5,13 @@ for ($i = 0; $i < count($data); $i += 4) {
         ?>
        <div class="col-md-3 text-center">
             <div class="img text-center">
-                <img src=<?php echo $data[$j]->ImagePath; ?>>
+                <img src= <?= $data[$j]->ImagePath; ?>>
             </div></br>
             <div>
-                <a href=/Product/detail?tovarId=<?php echo$data[$j]->Id ?> > <?php echo$data[$j]->name?></a>
+                <a href=/Product/detail?tovarId=<?php echo$data[$j]->Id ?> >  <?= $data[$j]->name?></a>
                 <div class="row">
-                    <p><?php echo$data[$j]->price?> грн. </p>
-                    <button class="btn btn-primary btn-md" onclick=sendClick(<?php echo$data[$j]->Id?>)>Добавить в корзину</button>
+                    <p> <?= $data[$j]->price?> грн. </p>
+                    <button class="btn btn-primary btn-md" onclick=sendClick( <?=$data[$j]->Id?>)>Добавить в корзину</button>
                 </div>
             </div>
        </div>

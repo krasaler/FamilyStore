@@ -7,6 +7,7 @@ session_start();
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="/css/style.css"/>
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <link rel="icon" type="image/ico" href="http://Store/favicon.ico" />
     <script src="/js/jquery-2.1.4.js" type="text/javascript"></script>
     <script src="/js/bootstrap.js" type="text/javascript"></script>
     <script src="/js/script.js" type="text/javascript"></script>

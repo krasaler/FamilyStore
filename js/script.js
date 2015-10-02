@@ -17,6 +17,57 @@ function Auth(myForm) {
             }
         });
 }
+function CreateProduct(myForm) {
+    var names = [];
+    var values = [];
+    var dvs = document.getElementById('attribute').getElementsByTagName('input')
+    for (var i = 0; i < dvs.length; i++) {
+        names.push(dvs[i].name);
+        values.push(dvs[i].value);
+    }
+    var dvs = document.getElementById('attribute').getElementsByTagName('select')
+    for (var i = 0; i < dvs.length; i++) {
+        names.push(dvs[i].name);
+        values.push(dvs[i].value);
+    }
+    var inputName = myForm.form.inputName.value;
+    var inputPrice = myForm.form.inputPrice.value;
+    var catalog = myForm.form.catalog.value;
+    var inputDescription = myForm.form.inputDescription.value;
+    var file = myForm.form.inputImage.files[0]
+    var formData = new FormData();
+    formData.append("file-0", file);
+    formData.append("inputName",inputName);
+    formData.append("catalog",catalog);
+    formData.append("inputDescription",inputDescription);
+    formData.append("names",names);
+    formData.append("values",values);
+    formData.append("inputPrice",inputPrice);
+    var req = getXmlHttp()
+    req.onreadystatechange =function() {
+        if (req.readyState == 4 && req.status == 200) {
+            window.location.replace('/product/itemAdmin');
+        }
+    }
+    req.open('POST', '/product/new', true);
+    req.send(formData);
+}
+function getXmlHttp() {
+    var xmlhttp;
+    try {
+        xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+    } catch (e) {
+        try {
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        } catch (E) {
+            xmlhttp = false;
+        }
+    }
+    if (!xmlhttp && typeof XMLHttpRequest != 'undefined') {
+        xmlhttp = new XMLHttpRequest();
+    }
+    return xmlhttp;
+}
 
 function CreateCatalog(myForm) {
     var values = [];
@@ -27,6 +78,7 @@ function CreateCatalog(myForm) {
             values.push(vehicles[i].value);
         }
     }
+    alert("Vehicles: " + values.join(', '));
     alert("Vehicles: " + values.join(', '));
 }
 function Register(myForm) {
@@ -102,12 +154,7 @@ function CreateCatalog() {
 
 function newReview(myForm, tovarId) {
     var reviewText = myForm.form.reviewText.value;
-    $.post("/catalog/newReview", {review: reviewText, tovarId: tovarId},
-        function (data) {
-            var $response = $(data);
-            var oneval = $response.filter('#container-fluid');
-            $("#container-fluid").html(oneval);
-        });
+    $.post("/account/newReview", {review: reviewText, tovarId: tovarId});
 }
 function Order() {
     window.location.replace('/basket/inputAddress');

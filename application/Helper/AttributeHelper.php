@@ -2,7 +2,9 @@
 
 require_once __ROOT__.'/application/Service/AttributeGroupService.php';
 require_once __ROOT__.'/application/Service/UnitService.php';
+require_once __ROOT__.'/application/Service/AttributeListService.php';
 require_once __ROOT__.'/application/ViewModel/AttributeViewModel.php';
+require_once __ROOT__.'/application/Helper/AttributeGroupHelper.php';
 class AttributeHelper
 {
     public static function PopulateAttributeViewModel($attribute)
@@ -16,7 +18,29 @@ class AttributeHelper
         $model->unit = UnitService::GetById($attribute->unit_id)->name;
         return $model;
     }
-
+    public static function PopulateAttributeListEditViewModel($attribute)
+    {
+        $model = new AttributeListEditViewModel();
+        $model->id=$attribute->attribute_id;
+        $model->attributeGroups = AttributeGroupHelper::PopulateAttributeGroupViewModelList(AttributeGroupService::GetAll());
+        $model->units = UnitService::GetAll();
+        $model->name = $attribute->name;
+        $model->attributeGroupName = AttributeGroupService::GetById($attribute->attributegroup_id)->name;
+        $model->unitName = UnitService::GetById($attribute->unit_id)->name;
+        $model->values = AttributeListService::GetValuesByAttributeId($model->id);
+        return $model;
+    }
+    public static function PopulateAttributeFloatEditViewModel($attribute)
+    {
+        $model = new AttributeFloatEditViewModel();
+        $model->id=$attribute->attribute_id;
+        $model->attributeGroups = AttributeGroupHelper::PopulateAttributeGroupViewModelList(AttributeGroupService::GetAll());
+        $model->units = UnitService::GetAll();
+        $model->name = $attribute->name;
+        $model->attributeGroupName = AttributeGroupService::GetById($attribute->attributegroup_id)->name;
+        $model->unitName = UnitService::GetById($attribute->unit_id)->name;
+        return $model;
+    }
     public static function PopulateAttributeViewModelList($attributes)
     {
         for ($i=0;$i<count($attributes);$i++)

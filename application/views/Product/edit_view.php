@@ -76,7 +76,7 @@
     <fieldset>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <button type="button" class="btn btn-default" onclick="CreateProduct(this)">Создать</button>
+                <button type="button" class="btn btn-default" onclick="EditProduct(this)">Изменить\</button>
             </div>
         </div>
     </fieldset>

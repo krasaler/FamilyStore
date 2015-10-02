@@ -14,6 +14,12 @@ class AttributeListService
     {
         return AttributeList::find('all',array('attribute_id'=>$attributeId));
     }
+    public static function GetByAttributeIdAndName($attributeId,$name)
+    {
+        return AttributeList::find(array('attribute_id'=>$attributeId,
+            'name'=>$name
+            ));
+    }
     public static function GetValuesByAttributeId($attributeId)
     {
         $attributeslist = AttributeListService::GetByAttributeId($attributeId);

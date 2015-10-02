@@ -8,4 +8,6 @@ class AccountViewModel
     public $name;
 
     public $email;
+
+    public $telefone;
 }

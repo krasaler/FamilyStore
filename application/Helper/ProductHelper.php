@@ -6,6 +6,8 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/application/Helper/AttributeValueFloatH
 require_once $_SERVER['DOCUMENT_ROOT'].'/application/Service/AttributeValueFloatService.php';
 require_once $_SERVER['DOCUMENT_ROOT'].'/application/Helper/AttributeValueListHelper.php';
 require_once $_SERVER['DOCUMENT_ROOT'].'/application/Service/AttributeValueListService.php';
+require_once __ROOT__.'/application/ViewModel/ProductCreateViewModel.php';
+require_once __ROOT__.'/application/Service/CatalogueAttributeService.php';
 
 class ProductHelper
 {
@@ -37,5 +39,25 @@ class ProductHelper
         }
         return $models;
 
+    }
+
+    public static function PopulateProductCreateViewModel($catalogue)
+    {
+        $model = new ProductCreateViewModel();
+        $attributes = CatalogueAttributeService::GetAttributesByCatalogueId($catalogue->catalogue_id);
+        foreach($attributes as $value)
+        {
+            if($value->type==1)
+            {
+                $model->attributesFloat[count($model->attributesFloat)] = $value;
+            }
+            else
+            {
+                $model->ListName[count($model->attributesList)] = $value->name;
+                $model->attributesList[count($model->attributesList)] = AttributeListService::GetByAttributeId(
+                    $value->attribute_id);
+            }
+        }
+        return $model;
     }
 }

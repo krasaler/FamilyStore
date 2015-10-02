@@ -24,14 +24,14 @@
                         for ($i = 0; $i < count($sections); $i++) { ?>
                         <li class="dropdown dropdown-submenu">
                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                 <?php echo $sections[$i]->name; ?>
+                                 <?=$sections[$i]->name; ?>
                              </a>
                                 <ul class="dropdown-menu">
                                     <?php
                                     for ($j = 0; $j < count($sections[$i]->catalogues); $j++) { ?>
                                     <li>
-                                        <a href="/Product/Index?c=<?php  echo $sections[$i]->catalogues[$j]->name; ?>">
-                                            <?php echo $sections[$i]->catalogues[$j]->name; ?>
+                                        <a href="/Product/Index?c=<?=$sections[$i]->catalogues[$j]->name ?>">
+                                            <?=$sections[$i]->catalogues[$j]->name ?>
                                         </a>
                                     </li>
                                  <?php }?>
@@ -61,11 +61,11 @@
                     <li><a href="/basket">Корзина</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                           role="button" aria-haspopup="true" aria-expanded="false"><?php echo $_SESSION["login"]; ?>
+                           role="button" aria-haspopup="true" aria-expanded="false"><?=$_SESSION["login"] ?>
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="/account/index">Профиль</a></li>
-                            <li><a href="#">Заказы</a></li>
+                            <li><a href="/account/order">Заказы</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="/account/logout">Выход</a></li>
                         </ul>

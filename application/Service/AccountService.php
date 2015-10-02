@@ -22,6 +22,7 @@ class AccountService
             'account_id' => $account->account_id,
             'account_name' => $account->account_name,
             'email' => $account->email,
+            'telefone' => $account->telefone,
             'passwordsalt' => $account->passwordsalt,
             'passwordkey' => $account->passwordkey,
             'IsApproved' => false

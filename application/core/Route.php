@@ -8,12 +8,7 @@ class Route
         $uri = $_SERVER['REQUEST_URI'];
         $uri=explode('?', $uri);
         $routes = explode('/', $uri[0]);
-        if(isset($_GET['r']))
-        {
-            $sss = explode('/', $_GET['r']);
-            $controller_name = $sss[1];
-            $action_name = $sss[2];
-        }
+
         if ( !empty($routes[1]) )
         {	
             $controller_name = $routes[1];
@@ -21,6 +16,12 @@ class Route
         if ( !empty($routes[2]))
         {
             $action_name = $routes[2];
+        }
+        if(isset($_GET['r']))
+        {
+            $sss = explode('/', $_GET['r']);
+            $controller_name = $sss[0];
+            $action_name = $sss[1];
         }
         $controller_name = 'Controller_'.$controller_name;
         $action_name = 'action_'.$action_name;

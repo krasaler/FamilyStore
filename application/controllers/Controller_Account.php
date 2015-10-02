@@ -4,7 +4,10 @@ require_once __ROOT__ . '/application/ViewModel/RegisterModel.php';
 require_once __ROOT__ . '/application/Helper/AccountHelper.php';
 require_once __ROOT__ . '/application/EmailService/EmailService.php';
 require_once __ROOT__ . '/application/Service/UserService.php';
+require_once __ROOT__ . '/application/Service/ReviewService.php';
 require_once __ROOT__ . '/application/Helper/PermissionHelper.php';
+require_once __ROOT__ . '/application/Service/OrderService.php';
+require_once __ROOT__ . '/application/Helper/OrderHelper.php';
 class Controller_Account extends Controller
 {
 
@@ -25,7 +28,21 @@ class Controller_Account extends Controller
         $_SESSION["is_auth"] = false;
         header('Location: /main/index');
     }
-
+    function action_order()
+    {
+        session_start();
+        $login =$_SESSION["login"];
+        if(!is_null($login))
+        {
+            $model = OrderHelper::PopulateOrderDetailViewModelList(OrderService::GetByAccountId(
+                AccountService::GetByName($login,true)->account_id));
+            $this->view->generate('/Account/order_view.php', 'template_view.php',$model);
+        }
+        else
+        {
+            header("Location: /Product/");
+        }
+    }
     function action_auth()
     {
         $login = $_POST['login'];
@@ -37,7 +54,7 @@ class Controller_Account extends Controller
 				$_SESSION["login"] = $login;
 		}
          else {
-            echo 'РќРµРІРµСЂРЅС‹Р№ Р»РѕРіРёРЅ РёР»Рё РїР°СЂРѕР»СЊ';
+            echo 'Неверное имя пользователя или пароль';
             $_SESSION["is_auth"] = false;
              $_SESSION["login"] = null;
         }
@@ -76,7 +93,7 @@ class Controller_Account extends Controller
             EmailService::SendVerifyNewUserMessage($account, $model->Password, 'http://Store/',
                 'Account/VerifyNewAccount');
         } else {
-				echo 'Р”Р°РЅРЅРѕРµ РёРјСЏ СѓР¶Рµ СЃРµС‰СѓСЃС‚РІСѓРµС‚';
+				echo 'Данной имя пользовател уже занято';
 		}
     }
     function action_permission()
@@ -87,8 +104,9 @@ class Controller_Account extends Controller
     {
         session_start();
         $login = $_SESSION["login"];
-        PermissionHelper::Verification($login,__Viewer__,__CanUpdate__);
-        $this->view->generate('/Account/index_view.php', 'template_view.php');
+        $model = AccountHelper::PopulateAccountViewModel(AccountService::GetByName($login,true));
+       // PermissionHelper::Verification($login,__Viewer__,__CanUpdate__);
+        $this->view->generate('/Account/detail_view.php', 'template_view.php',$model);
      }
     function action_newReview()
     {
@@ -100,7 +118,6 @@ class Controller_Account extends Controller
         $review->account_id = AccountService::GetByName($login, true)->account_id;
         $review->value = $_POST['review'];
         ReviewService::Create($review);
-        //Р�СЃРїСЂР°РІРёС‚СЊ
         $this->view->generate('detail_view.php', 'template_view.php',
             ProductHelper::PopulateProductViewModel(ProductService::GetById($tovarId)));
     }

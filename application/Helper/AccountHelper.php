@@ -20,6 +20,7 @@ class AccountHelper
             return $uuid;
         }
     }
+
     public static function PopulateAccountFromRegisterViewModel($model)
     {
         $salt = mcrypt_create_iv(16,MCRYPT_DEV_URANDOM);
@@ -30,6 +31,7 @@ class AccountHelper
         $account->account_name = $model->AccountName;
         $account->passwordsalt = $salt;
         $account->passwordkey = $hash;
+        $account->Telefon = $model->telefone;
         $account->email = $model->Email;
         return $account;
     }
@@ -39,6 +41,7 @@ class AccountHelper
         $model->id = $account->account_id;
         $model->name = $account->account_name;
         $model->email = $account->email;
+        $model->telefone = $account->telefon;
         return $model;
     }
 

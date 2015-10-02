@@ -85,10 +85,12 @@ class Controller_Basket extends Controller
             $order = OrderService::Create($order);
             $products = $model->products;
             for ($i = 0; $i < count($products); $i++) {
-                $orderlist = new OrderList();
-                $orderlist->order_id = $order->order_id;
-                $orderlist->product_id = $products[$i]->Id;
-                OrderListService::Create($orderlist);
+                for($j=0;$j<$model->counts[$i];$j++) {
+                    $orderlist = new OrderList();
+                    $orderlist->order_id = $order->order_id;
+                    $orderlist->product_id = $products[$i]->Id;
+                    OrderListService::Create($orderlist);
+                }
             }
             $_SESSION['basket'] = null;
             EmailService::SendNewOrderMessage($account,$order->order_id, $model->SumPrice());
