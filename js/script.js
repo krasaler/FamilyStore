@@ -121,9 +121,12 @@ function Register(myForm) {
     var Password = myForm.form.inputPassword3.value;
     var confirmPssword = myForm.form.inputConfirmPassword3.value;
     var Email = myForm.form.inputEmail.value;
+    var inputTelefone = myForm.form.    inputTelefone.value;
+
     var re = /\S+@\S+\.\S+/;
     var loginRE = /[A-Za-z0-9]{6,12}/;
     var passwordRE = /[A-Za-z0-9]{8,16}/;
+    var telefonRE = /[+][0-9]{12}/;
     if (!loginRE.test(login)) {
         $("#error").html("Логин должен содержать от 6 до 12 латинский символов и цыфр");
     }
@@ -136,10 +139,13 @@ function Register(myForm) {
     else if (!re.test(Email)) {
         $("#error").html("Email введен не правильно");
     }
+    else if (!telefonRE.test(inputTelefone)) {
+        $("#error").html("Телефон введен не правильно");
+    }
     else {
         $.post("/account/new", {
                 login: login, pwd: Password, confirmpwd: confirmPssword,
-                Email: Email
+                Email: Email,inputTelefone:inputTelefone
             },
             function (data) {
                 if (data != "") {

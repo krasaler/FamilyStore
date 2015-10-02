@@ -83,10 +83,12 @@ class Controller_Account extends Controller
         $login = $_POST['login'];
         $pwd = $_POST['pwd'];
         $email = $_POST['Email'];
+        $inputTelefone = $_POST['inputTelefone'];
         $model = new RegisterModel();
         $model->AccountName = $login;
         $model->Password = $pwd;
         $model->Email = $email;
+        $model->Telefon = $inputTelefone;
         if (!AccountService::IsExistedByName($login)) {
             $account = AccountHelper::PopulateAccountFromRegisterViewModel($model);
             $account=AccountService::Create($account);

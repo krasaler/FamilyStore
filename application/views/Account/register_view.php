@@ -13,6 +13,13 @@
             </div>
         </div>
         <div class="form-group">
+            <label for="inputTelefone" class="col-sm-2 control-label">Телефон</label>
+
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="inputTelefone" placeholder="Логин">
+            </div>
+        </div>
+        <div class="form-group">
             <label for="inputPassword3" class="col-sm-2 control-label">Пароль</label>
 
             <div class="col-sm-10">
