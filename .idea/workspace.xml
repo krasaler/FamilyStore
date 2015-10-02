@@ -6,9 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="ebb837a2-a7df-4640-9d5e-002a72804d88" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/controllers/Controller_Account.php" afterPath="$PROJECT_DIR$/application/controllers/Controller_Account.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/Account/register_view.php" afterPath="$PROJECT_DIR$/application/views/Account/register_view.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/script.js" afterPath="$PROJECT_DIR$/js/script.js" />
     </list>
     <ignored path="Store.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -339,11 +336,17 @@
       <option name="project" value="LOCAL" />
       <updated>1443804147891</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Добавлен ввод телефона пользователя при регистрации">
+      <created>1443804662620</created>
+      <option name="number" value="00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1443804662620</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1296" height="1000" extended-state="6" />
+    <frame x="-8" y="-8" width="1296" height="1000" extended-state="7" />
     <editor active="false" />
     <layout>
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25703126" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -388,7 +391,8 @@
     <MESSAGE value="Добавлено управление заказами" />
     <MESSAGE value="Добавлено Изменение товара" />
     <MESSAGE value="Добавлено разограничение прав" />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавлено разограничение прав" />
+    <MESSAGE value="Добавлен ввод телефона пользователя при регистрации" />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавлен ввод телефона пользователя при регистрации" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
