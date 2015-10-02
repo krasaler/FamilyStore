@@ -11,6 +11,10 @@ class AttributeValueFloatService
     {
         return AttributeValueFloat::find('all',array('product_id'=>$productId));
     }
+    public static function GetByProductIdAndAttributeId($productId,$attributeId)
+    {
+        return AttributeValueFloat::find(['product_id'=>$productId,'attribute_id'=>$attributeId]);
+    }
     public static function Save($attribute)
     {
         $attribute->save();

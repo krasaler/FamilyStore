@@ -7,6 +7,7 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/application/Service/AttributeValueFloat
 require_once $_SERVER['DOCUMENT_ROOT'].'/application/Helper/AttributeValueListHelper.php';
 require_once $_SERVER['DOCUMENT_ROOT'].'/application/Service/AttributeValueListService.php';
 require_once __ROOT__.'/application/ViewModel/ProductCreateViewModel.php';
+require_once __ROOT__.'/application/ViewModel/ProductEditViewModel.php';
 require_once __ROOT__.'/application/Service/CatalogueAttributeService.php';
 
 class ProductHelper
@@ -39,6 +40,24 @@ class ProductHelper
         }
         return $models;
 
+    }
+    public static function PopulateProductEditViewModel($product)
+    {
+        $model = new ProductEditViewModel();
+        $model->id = $product->id;
+        $model->name = $product->name;
+        $model->description = $product->description;
+        $model->price = $product->price;
+        $model->AttributesFloat =AttributeValueFloatHelper::PopulateAttributeValueFloatViewModelList(
+            AttributeValueFloatService::GetByProductId($product->product_id));
+        $model->AttributesList = AttributeValueListHelper::PopulateAttributeValueListViewModelList(
+            AttributeValueListService::GetByProductId($product->product_id));
+        for($i=0;$i<count($model->AttributesList);$i++)
+        {
+            $model->AttributesListValue[$i] = AttributeListService::GetValuesByAttributeId($model->AttributesList[$i]->
+            attribute->id);
+        }
+        return $model;
     }
 
     public static function PopulateProductCreateViewModel($catalogue)

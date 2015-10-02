@@ -11,7 +11,8 @@ class ProductEditViewModel
     public $id;
     public $name;
     public $description;
-    public $attributesFloat;
-    public $attributesList;
-    public $ListName;
+    public $price;
+    public $AttributesFloat;
+    public $AttributesList;
+    public $AttributesListValue;
 }

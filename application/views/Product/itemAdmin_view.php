@@ -22,7 +22,7 @@
                     <div class="btn-group" role="group" aria-label="...">
 
                         <button type="button" class="btn btn-default" onclick="window.location.href
-                            ='/Section/edit?id=<?php echo $value->Id; ?>'"
+                            ='/product/edit?id=<?php echo $value->Id; ?>'"
                         >Изменить</button>
 
                         <button  type="button" class="btn btn-default" onclick="window.location.href

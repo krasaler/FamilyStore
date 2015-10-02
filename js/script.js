@@ -17,6 +17,40 @@ function Auth(myForm) {
             }
         });
 }
+function EditProduct(myForm,id) {
+    var names = [];
+    var values = [];
+    var dvs = document.getElementById('attribute').getElementsByTagName('input')
+    for (var i = 0; i < dvs.length; i++) {
+        names.push(dvs[i].name);
+        values.push(dvs[i].value);
+    }
+    var dvs = document.getElementById('attribute').getElementsByTagName('select')
+    for (var i = 0; i < dvs.length; i++) {
+        names.push(dvs[i].name);
+        values.push(dvs[i].value);
+    }
+    var inputName = myForm.form.inputName.value;
+    var inputPrice = myForm.form.inputPrice.value;
+    var catalog = myForm.form.catalog.value;
+    var inputDescription = myForm.form.inputDescription.value;
+    var formData = new FormData();
+    formData.append("inputName",inputName);
+    formData.append("catalog",catalog);
+    formData.append("inputDescription",inputDescription);
+    formData.append("names",names);
+    formData.append("values",values);
+    formData.append("inputPrice",inputPrice);
+    formData.append("id",id);
+    var req = getXmlHttp()
+    req.onreadystatechange =function() {
+        if (req.readyState == 4 && req.status == 200) {
+            window.location.replace('/product/itemAdmin');
+        }
+    }
+    req.open('POST', '/product/update', true);
+    req.send(formData);
+}
 function CreateProduct(myForm) {
     var names = [];
     var values = [];

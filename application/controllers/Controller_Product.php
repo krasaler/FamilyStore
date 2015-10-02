@@ -46,7 +46,38 @@ class Controller_Product extends Controller
         $productsVM = ProductHelper::PopulateProductViewModelList(ProductService::GetAll());
         $this->view->generate('/Product/itemAdmin_view.php', 'template_view.php', $productsVM);
     }
-
+    function action_update()
+    {
+        $id = $_POST['id'];
+        $name = $_POST['inputName'];
+        $price = $_POST['inputPrice'];
+        $Description = $_POST['inputDescription'];
+        $names = explode(',',$_POST['names']);
+        $values = explode(',',$_POST['values']);
+        $catalog = $_POST['catalog'];
+        $product = ProductService::GetById($id);
+        $product->name = $name;
+        $product->price = $price;
+        $product->description = $Description;
+        ProductService::Save($product);
+        $product_id = ProductService::GetByName($name)->product_id;
+        for ($i = 0; $i < count($names); $i++) {
+            $attribute = AttributeService::GetByName($names[$i]);
+            if ($attribute->type == 1) {
+                $attributeFloat = AttributeValueFloatService::GetByProductIdAndAttributeId($product_id,
+                    $attribute->attribute_id);
+                $attributeFloat->value = $values[$i];
+                AttributeValueFloatService::Save($attributeFloat);
+            } else {
+                $attributeList = AttributeValueListService::GetByProductIdAndAttributeId($product_id,
+                    $attribute->attribute_id);
+                $attributeList->value = AttributeListService::GetByAttributeIdAndName($attribute->attribute_id,
+                    $values[$i])->attributelist_id;
+                AttributeValueListService::Save($attributeList);
+            }
+        }
+        header("Location: /Product/itemAdmin");
+    }
     function action_new()
     {
         $name = $_POST['inputName'];
@@ -88,8 +119,6 @@ class Controller_Product extends Controller
         fclose($fr);
         fclose($fw);
         header("Location: /Product/itemAdmin");
-
-
     }
 
     function action_create()
@@ -103,7 +132,17 @@ class Controller_Product extends Controller
             header("Location: /Product/SelectCatalog");
         }
     }
+    function action_edit()
+    {
+        $id = $_GET['id'];
+        if (!is_null($id)) {
 
+            $model = ProductHelper::PopulateProductEditViewModel(ProductService::GetById($id));
+            $this->view->generate('/Product/edit_view.php', 'template_view.php', $model);
+        } else {
+            header("Location: /Main/Index");
+        }
+    }
     function action_detail()
     {
         $tovarId = $_GET['tovarId'];
