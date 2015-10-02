@@ -14,12 +14,6 @@ class Controller_Product extends Controller
 {
     function action_index()
     {
-
-        if (isset($_GET['p'])) {
-            $page = $_GET['p'];
-        } else {
-            $page = 1;
-        }
         if (isset($_GET['c'])) {
             $productsVM = ProductHelper::PopulateProductViewModelList(ProductService::GetByCatalogue($_GET['c']));
         } else {
@@ -30,6 +24,7 @@ class Controller_Product extends Controller
 
     function action_SelectCatalog()
     {
+        PermissionHelper::Verification('Editor');
         $model = CatalogueService::GetAll();
         $this->view->generate('/Product/SelectCatalog_view.php', 'template_view.php', $model);
     }
@@ -43,11 +38,13 @@ class Controller_Product extends Controller
 
     function action_itemAdmin()
     {
+        PermissionHelper::Verification('Editor');
         $productsVM = ProductHelper::PopulateProductViewModelList(ProductService::GetAll());
         $this->view->generate('/Product/itemAdmin_view.php', 'template_view.php', $productsVM);
     }
     function action_update()
     {
+        PermissionHelper::Verification('Editor');
         $id = $_POST['id'];
         $name = $_POST['inputName'];
         $price = $_POST['inputPrice'];
@@ -80,6 +77,7 @@ class Controller_Product extends Controller
     }
     function action_new()
     {
+        PermissionHelper::Verification('Editor');
         $name = $_POST['inputName'];
         $price = $_POST['inputPrice'];
         $Description = $_POST['inputDescription'];
@@ -123,6 +121,7 @@ class Controller_Product extends Controller
 
     function action_create()
     {
+        PermissionHelper::Verification('Editor');
         $c = $_POST['c'];
         if (!is_null($c)) {
 
@@ -134,6 +133,7 @@ class Controller_Product extends Controller
     }
     function action_edit()
     {
+        PermissionHelper::Verification('Editor');
         $id = $_GET['id'];
         if (!is_null($id)) {
 
@@ -156,6 +156,7 @@ class Controller_Product extends Controller
 
     function action_remove()
     {
+        PermissionHelper::Verification('Editor');
         $tovarId = $_GET['tovarId'];
         ProductService::Delete(ProductService::GetById($tovarId));
         header("Location: /product/itemadmin");

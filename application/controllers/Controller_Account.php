@@ -5,7 +5,7 @@ require_once __ROOT__ . '/application/Helper/AccountHelper.php';
 require_once __ROOT__ . '/application/EmailService/EmailService.php';
 require_once __ROOT__ . '/application/Service/UserService.php';
 require_once __ROOT__ . '/application/Service/ReviewService.php';
-require_once __ROOT__ . '/application/Helper/PermissionHelper.php';
+
 require_once __ROOT__ . '/application/Service/OrderService.php';
 require_once __ROOT__ . '/application/Helper/OrderHelper.php';
 class Controller_Account extends Controller
@@ -105,7 +105,6 @@ class Controller_Account extends Controller
         session_start();
         $login = $_SESSION["login"];
         $model = AccountHelper::PopulateAccountViewModel(AccountService::GetByName($login,true));
-       // PermissionHelper::Verification($login,__Viewer__,__CanUpdate__);
         $this->view->generate('/Account/detail_view.php', 'template_view.php',$model);
      }
     function action_newReview()

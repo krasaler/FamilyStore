@@ -1,7 +1,7 @@
 <?
 require_once __ROOT__ . '/application/Service/UserRoleService.php';
 if (isset($_SESSION['login'])) {
-    if (UserRoleService::CheckAdmin($_SESSION['login'])) {
+    if (PermissionHelper::VerificationBool('Editor')) {
         ?>
         <div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"

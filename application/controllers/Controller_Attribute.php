@@ -15,12 +15,14 @@ class Controller_Attribute extends Controller
 {
     public function action_item()
     {
+        PermissionHelper::Verification('Editor');
         $model = AttributeHelper::PopulateAttributeViewModelList(AttributeService::GetAll());
         $this->view->generate('/Attribute/item_view.php', 'template_view.php', $model);
     }
 
     public function action_CreateFloat()
     {
+        PermissionHelper::Verification('Editor');
         $model = new AttributeFloatCreateViewModel();
         $model->attributeGroups = AttributeGroupHelper::PopulateAttributeGroupViewModelList(AttributeGroupService::GetAll());
         $model->units = UnitService::GetAll();
@@ -29,6 +31,7 @@ class Controller_Attribute extends Controller
 
     public function action_newFloat()
     {
+        PermissionHelper::Verification('Editor');
         $name = $_POST['inputName'];
         $attributeGroupName = $_POST['inputGroup'];
         $attributeUnitName = $_POST['inputUnit'];
@@ -45,6 +48,7 @@ class Controller_Attribute extends Controller
     }
     public function action_CreateList()
     {
+        PermissionHelper::Verification('Editor');
         $model = new AttributeFloatCreateViewModel();
         $model->attributeGroups = AttributeGroupHelper::PopulateAttributeGroupViewModelList(AttributeGroupService::GetAll());
         $model->units = UnitService::GetAll();
@@ -53,6 +57,7 @@ class Controller_Attribute extends Controller
 
     public function action_newList()
     {
+        PermissionHelper::Verification('Editor');
         $name = $_POST['inputName'];
         $attributeGroupName = $_POST['inputGroup'];
         $attributeUnitName = $_POST['inputUnit'];
@@ -78,18 +83,21 @@ class Controller_Attribute extends Controller
     }
     public function action_EditFloat()
     {
+        PermissionHelper::Verification('Editor');
         $id = $_GET['id'];
         $model = AttributeHelper::PopulateAttributeFloatEditViewModel(AttributeService::GetById($id));
         $this->view->generate('/Attribute/EditFloat_view.php', 'template_view.php', $model);
     }
     public function action_EditList()
     {
+        PermissionHelper::Verification('Editor');
         $id = $_GET['id'];
         $model=AttributeHelper::PopulateAttributeListEditViewModel(AttributeService::GetById($id));
         $this->view->generate('/Attribute/EditList_view.php', 'template_view.php', $model);
     }
     public function action_UpdateFloat()
     {
+        PermissionHelper::Verification('Editor');
         $id = $_POST['id'];
         $attribute = AttributeHelper::PopulateAttributeFromEditModel($id,$_POST['inputName'], $_POST['inputGroup'],
             $_POST['inputUnit'] );
@@ -98,18 +106,21 @@ class Controller_Attribute extends Controller
     }
     public function action_DetailList()
     {
+        PermissionHelper::Verification('Editor');
         $id = $_GET['id'];
         $model=AttributeHelper::PopulateAttributeListEditViewModel(AttributeService::GetById($id));
         $this->view->generate('/Attribute/DetailList_view.php', 'template_view.php', $model);
     }
     public function action_DetailFloat()
     {
+        PermissionHelper::Verification('Editor');
         $id = $_GET['id'];
         $model = AttributeHelper::PopulateAttributeFloatEditViewModel(AttributeService::GetById($id));
         $this->view->generate('/Attribute/DetailFloat_view.php', 'template_view.php', $model);
     }
     public function GetIndexFromArray($attribute,$attributes)
     {
+        PermissionHelper::Verification('Editor');
         for($i=0;$i<count($attributes);$i++)
         {
             if($attribute == $attributes[$i])
@@ -122,6 +133,7 @@ class Controller_Attribute extends Controller
     }
     public function action_UpdateList()
     {
+        PermissionHelper::Verification('Editor');
         $id = $_POST['id'];
         $attributeValue = explode("\r\n", $_POST['inputValue']);
         $attribute = AttributeHelper::PopulateAttributeFromEditModel($id,$_POST['inputName'],$_POST['inputGroup'],
@@ -150,6 +162,7 @@ class Controller_Attribute extends Controller
     }
     public function action_RemoveGroup()
     {
+        PermissionHelper::Verification('Editor');
         $id = $_GET['id'];
         $attributeGroup = AttributeGroupService::GetById($id);
         AttributeGroupService::Delete($attributeGroup);
@@ -157,6 +170,7 @@ class Controller_Attribute extends Controller
     }
     public function action_Remove()
     {
+        PermissionHelper::Verification('Editor');
         $id = $_GET['id'];
         AttributeService::Delete(AttributeService::GetById($id));
         header("Location: /Attribute/Item");

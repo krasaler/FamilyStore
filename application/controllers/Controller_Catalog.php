@@ -23,17 +23,20 @@ class Controller_Catalog extends Controller
 
     function action_Item()
     {
+        PermissionHelper::Verification('Editor');
         $model = CatalogueHelper::PopulateCatalogueViewModelList(CatalogueService::GetAll());
         $this->view->generate('/Catalog/item_view.php', 'template_view.php', $model);
     }
 
     function action_Create()
     {
+        PermissionHelper::Verification('Editor');
         $model = AttributeGroupHelper::PopulateAttributeGroupViewModelList(AttributeGroupService::GetAll());
         $this->view->generate('/Catalog/create_view.php', 'template_view.php', $model);
     }
     function action_Edit()
     {
+        PermissionHelper::Verification('Editor');
         $catalog_id = $_GET['id'];
         $model = CatalogEditHelper::PopulateCatalogueEditViewModel(CatalogueService::GetById($catalog_id));
         $this->view->generate('/Catalog/edit_view.php', 'template_view.php', $model);
@@ -41,6 +44,7 @@ class Controller_Catalog extends Controller
 
     function action_Update()
     {
+        PermissionHelper::Verification('Editor');
         $catalogue_id = $_POST['id'];
         $name = $_POST['inputName'];
         $sectionName = $_POST['inputSection'];
@@ -66,6 +70,7 @@ class Controller_Catalog extends Controller
 
     function action_Detail()
     {
+        PermissionHelper::Verification('Editor');
         $catalog_id = $_GET['id'];
         $model = CatalogDetailHelper::PopulateCatalogueDetailViewModel(CatalogueService::GetById($catalog_id));
         $this->view->generate("/Catalog/detail_view.php",'template_view.php',$model);
@@ -73,6 +78,7 @@ class Controller_Catalog extends Controller
 
     function action_Remove()
     {
+        PermissionHelper::Verification('Editor');
         $catalog_id = $_GET['id'];
         $catalogue = CatalogueService::GetById($catalog_id);
         CatalogueService::Delete($catalogue);
@@ -82,6 +88,7 @@ class Controller_Catalog extends Controller
 
     function action_new()
     {
+        PermissionHelper::Verification('Editor');
         $name = $_POST['inputName'];
         $sectionName = $_POST['inputSection'];
         $attribute = $_POST['attributes'];
