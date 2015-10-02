@@ -15,13 +15,14 @@
         </tr>
     <?php } }?>
 </table>
-<form class=form-inline">
+<form class=form-inline" action="/Account/newReview" method="post">
+    <input type="hidden" name="tovarId" value="<?=$data->Id?>">
     <div class="form-group" style="vertical-align: middle">
         <div class="col-lg-10">
-            <input id="reviewText" class="form-control" type="text" placeholder="Ваш коментарий" style="width: 100%;">
+            <input name="reviewText" class="form-control" type="text" placeholder="Ваш коментарий" style="width: 100%;">
         </div>
         <div class="col-lg-2">
-            <input type="button" onclick="newReview(this,<?php echo $data->Id?>)" value="Отправить" style="width: 100%;" class="btn btn-primary btn-md">
+            <input type="submit" value="Отправить" style="width: 100%;" class="btn btn-primary btn-md">
         </div>
     </div>
 </form>

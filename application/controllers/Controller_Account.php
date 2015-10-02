@@ -75,6 +75,7 @@ class Controller_Account extends Controller
             $user = new User();
             $user->user_id = $account->account_id;
             $user->user_name = $account->account_name;
+            UserService::Save($user);
             header("Location: /main");
         }
     }
@@ -88,7 +89,7 @@ class Controller_Account extends Controller
         $model->AccountName = $login;
         $model->Password = $pwd;
         $model->Email = $email;
-        $model->Telefon = $inputTelefone;
+        $model->Telefone = $inputTelefone;
         if (!AccountService::IsExistedByName($login)) {
             $account = AccountHelper::PopulateAccountFromRegisterViewModel($model);
             $account=AccountService::Create($account);
@@ -112,14 +113,18 @@ class Controller_Account extends Controller
     function action_newReview()
     {
         session_start();
-        $tovarId = $_POST['tovarId'];
         $login = $_SESSION["login"];
-        $review = new Review();
-        $review->product_id = $_POST['tovarId'];
-        $review->account_id = AccountService::GetByName($login, true)->account_id;
-        $review->value = $_POST['review'];
-        ReviewService::Create($review);
-        $this->view->generate('detail_view.php', 'template_view.php',
-            ProductHelper::PopulateProductViewModel(ProductService::GetById($tovarId)));
+        if (!is_null($login)) {
+            $tovarId = $_POST['tovarId'];
+            $review = new Review();
+            $review->product_id = $tovarId;
+            $review->account_id = AccountService::GetByName($login, true)->account_id;
+            $review->value = $_POST['reviewText'];
+            ReviewService::Create($review);
+            header("Location: /Review/thanks");
+        } else
+        {
+            header("Location: /Account/Login");
+        }
     }
 }

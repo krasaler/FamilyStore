@@ -66,6 +66,16 @@ if (isset($_SESSION['login'])) {
         <div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">
+                Пользователи <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a href="/Review/item">Список коментариев</a></li>
+                <li><a href="/Role/item">Редактирование ролей</a></li>
+            </ul>
+        </div>
+        <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
                 Заказы <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
