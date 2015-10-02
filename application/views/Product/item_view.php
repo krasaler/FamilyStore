@@ -1,3 +1,20 @@
+<div>
+    <form class="form-inline" action="/product/filter" method="post">
+        <input type="hidden" class="form-control" name="c" value="<?= $_GET['c'] ?>">
+        Цена
+        <div class="form-group">
+            <label class="control-label">от</label>
+            <input type="text" class="form-control" name="beginPrice" value="<?= $_POST['beginPrice'] ?>">
+        </div>
+        <div class="form-group">
+            <label class="control-label">до</label>
+            <input type="text" class="form-control" name="endPrice" value="<?= $_POST['endPrice'] ?>">
+        </div>
+        <input type="submit" class="btn btn-default" name="send" value="Фильровать">
+    </form>
+</div>
+<p></p>
+<p></p>
 <?php
 for ($i = 0; $i < count($data); $i += 4) {
     echo '<div class="row">';

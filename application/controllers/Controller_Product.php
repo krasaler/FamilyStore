@@ -21,6 +21,39 @@ class Controller_Product extends Controller
         }
         $this->view->generate('/Product/item_view.php', 'template_view.php', $productsVM);
     }
+    function action_filter(){
+        $beginPrice = $_POST['beginPrice'];
+        $endPrice = $_POST['endPrice'];
+        if($beginPrice=="")
+        {
+            $beginPrice=0;
+        }
+        if($endPrice=="")
+        {
+            $endPrice=0;
+        }
+        $c = $_POST['c'];
+        if($beginPrice<=$endPrice) {
+            if ($c!="") {
+                $productsVM = ProductHelper::PopulateProductViewModelList(ProductService::GetByCatalogue($c));
+            } else {
+                $productsVM = ProductHelper::PopulateProductViewModelList(ProductService::GetAll());
+            }
+            $k = 0;
+            for ($i = 0; $i < count($productsVM); $i++) {
+                if ($productsVM[$i]->price > $beginPrice && $productsVM[$i]->price < $endPrice) {
+                    $model[$k] = $productsVM[$i];
+                    $k++;
+                }
+            }
+            $this->view->generate('/Product/item_view.php', 'template_view.php', $model);
+        }
+        else
+        {
+            header("Location: /Product/index?c=".$c);
+        }
+
+    }
 
     function action_SelectCatalog()
     {
